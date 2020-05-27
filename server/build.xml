@@ -1,0 +1,11 @@
+<project name="OpenVASP" basedir=".">
+
+    <target name="h2-delete">
+        <delete>
+            <fileset dir="${maven.project.basedir}/h2">
+                <include name="openvasp.*"/>
+            </fileset>
+        </delete>
+    </target>
+
+</project>
