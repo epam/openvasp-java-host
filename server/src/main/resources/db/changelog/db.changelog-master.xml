@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="10" author="olexandr_bilovol@epam.com">
+        <!-- Table 'counterparty' -->
+        <createTable tableName="counterparty">
+            <column name="id" type="int" autoIncrement="true" startWith="10000" incrementBy="1">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cp_type" type="varchar(12)"/>
+            <column name="vaan" type="varchar(32)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="bic" type="varchar(15)"/>
+            <column name="birth_town" type="varchar(50)"/>
+            <column name="birth_country" type="varchar(2)"/>
+            <column name="birth_date" type="date"/>
+            <column name="addr_street" type="varchar(50)"/>
+            <column name="addr_nr" type="varchar(10)"/>
+            <column name="addr_line" type="varchar(50)"/>
+            <column name="addr_post_code" type="varchar(20)"/>
+            <column name="addr_town" type="varchar(50)"/>
+            <column name="addr_country" type="varchar(2)"/>
+        </createTable>
+        <!-- Table 'nat_id' -->
+        <createTable tableName="nat_id">
+            <column name="counterparty_id" type="int">
+                <constraints foreignKeyName="fk_nat_id_counterparty"
+                             referencedTableName="counterparty"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="id_type" type="int"/>
+            <column name="id_str" type="varchar(50)"/>
+            <column name="country" type="varchar(50)"/>
+            <column name="issuer" type="varchar(50)"/>
+        </createTable>
+        <!-- Table 'jur_id' -->
+        <createTable tableName="jur_id">
+            <column name="counterparty_id" type="int">
+                <constraints foreignKeyName="fk_jur_id_counterparty"
+                             referencedTableName="counterparty"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="id_type" type="int"/>
+            <column name="id_str" type="varchar(50)"/>
+            <column name="country" type="varchar(50)"/>
+            <column name="issuer" type="varchar(50)"/>
+        </createTable>
+        <!-- Table 'vasp_info' -->
+        <createTable tableName="vasp_info">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <!-- Table 'transfer' -->
+        <createTable tableName="transfer">
+            <column name="id" type="int" autoIncrement="true" startWith="10000" incrementBy="1">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tr_type" type="varchar(10)" defaultValue="INCOMING">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tr_status" type="varchar(30)" defaultValue="CREATED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="session_id" type="varchar(34)"/>
+            <column name="amount" type="decimal(12, 2)"/>
+            <column name="asset_type" type="varchar(5)" defaultValue="ETH"/>
+            <column name="send_addr" type="varchar(50)"/>
+            <column name="dest_addr" type="varchar(50)"/>
+            <column name="tx_hash" type="varchar(100)"/>
+            <column name="created" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="reply_code_1" type="int"/>
+            <column name="reply_code_2" type="int"/>
+            <column name="originator_id" type="int">
+                <constraints foreignKeyName="fk_transfer_originator"
+                             referencedTableName="counterparty"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="beneficiary_id" type="int">
+                <constraints foreignKeyName="fk_transfer_beneficiary"
+                             referencedTableName="counterparty"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="vasp_id" type="varchar(50)">
+                <constraints foreignKeyName="fk_transfer_vasp"
+                             referencedTableName="vasp_info"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="100" author="olexandr_bilovol@epam.com">
+        <!-- Table 'counterparty' -->
+        <loadData tableName="counterparty"
+                  file="db/master-data/counterparty.csv">
+            <column name="id" type="numeric"/>
+            <column name="cp_type" type="string"/>
+            <column name="vaan" type="string"/>
+            <column name="name" type="string"/>
+            <column name="bic" type="string"/>
+            <column name="birth_town" type="string"/>
+            <column name="birth_country" type="string"/>
+            <column name="birth_date" type="date"/>
+            <column name="addr_street" type="string"/>
+            <column name="addr_nr" type="string"/>
+            <column name="addr_line" type="string"/>
+            <column name="addr_post_code" type="string"/>
+            <column name="addr_town" type="string"/>
+            <column name="addr_country" type="string"/>
+        </loadData>
+        <!-- Table 'nat_id' -->
+        <loadData tableName="nat_id"
+                  file="db/master-data/nat_id.csv">
+            <column name="counterparty_id" type="numeric"/>
+            <column name="id_type" type="numeric"/>
+            <column name="id_str" type="string"/>
+            <column name="country" type="string"/>
+            <column name="issuer" type="string"/>
+        </loadData>
+        <!-- Table 'nat_id' -->
+        <loadData tableName="jur_id"
+                  file="db/master-data/jur_id.csv">
+            <column name="counterparty_id" type="numeric"/>
+            <column name="id_type" type="numeric"/>
+            <column name="id_str" type="string"/>
+            <column name="country" type="string"/>
+            <column name="issuer" type="string"/>
+        </loadData>
+        <!-- Table 'vasp_info' -->
+        <loadData tableName="vasp_info"
+                  file="db/master-data/vasp_info.csv">
+            <column name="id" type="string"/>
+            <column name="name" type="string"/>
+        </loadData>
+        <!-- Table 'transfer' -->
+        <loadData tableName="transfer"
+                  file="db/master-data/transfer.csv">
+            <column name="id" type="numeric"/>
+            <column name="tr_type" type="string"/>
+            <column name="tr_status" type="string"/>
+            <column name="session_id" type="string"/>
+            <column name="originator_id" type="numeric"/>
+            <column name="beneficiary_id" type="numeric"/>
+            <column name="amount" type="numeric"/>
+            <column name="tx_hash" type="string"/>
+            <column name="asset_type" type="string"/>
+            <column name="send_addr" type="string"/>
+            <column name="dest_addr" type="string"/>
+            <column name="vasp_id" type="string"/>
+            <column name="created" type="date"/>
+            <column name="updated" type="date"/>
+            <column name="reply_code_1" type="numeric"/>
+            <column name="reply_code_2" type="numeric"/>
+        </loadData>
+        <rollback>
+            <sql><![CDATA[
+                DELETE FROM nat_id;
+                DELETE FROM jur_id;
+                DELETE FROM transfer;
+                DELETE FROM vasp_info;
+                DELETE FROM counterparty;
+            ]]></sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
