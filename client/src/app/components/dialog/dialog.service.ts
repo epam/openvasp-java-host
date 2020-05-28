@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { Transfer } from '../../core/models/transfer.model';
 
 @Injectable()
 export class DialogService {
@@ -9,10 +8,11 @@ export class DialogService {
 
   constructor(private dialog: MatDialog) {}
 
-  public openDialog(data: Transfer | {}, component): Observable<string | undefined> {
+  public openDialog(data: any, component, title?: string, width?: string, height?: string): Observable<string | undefined> {
+    data.title = title;
     this.dialogRef = this.dialog.open(component, {
-      height: '400px',
-      width: '600px',
+      height: height || '400px',
+      width: width || '600px',
       data,
     });
 

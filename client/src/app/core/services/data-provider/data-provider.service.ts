@@ -42,7 +42,15 @@ export class DataProviderService {
     return this.http.put(API_URL + `transfers/${id}`, data).pipe(
       map(this.extractData),
       // tslint:disable-next-line:no-any
-      catchError(this.handleError<any>('create transfer'))
+      catchError(this.handleError<any>('edit transfer'))
+    );
+  }
+
+  public deleteTransfer(id: number): Observable<Transfer> {
+    return this.http.delete(API_URL + `transfers/${id}`).pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('delete transfer'))
     );
   }
 

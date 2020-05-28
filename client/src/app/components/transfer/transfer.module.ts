@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TransferDetailsService } from './transfer-details/transfer-details.service';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     TransferActionService,
     TransferActionFormService,
     TransferService,
+    TransferDetailsService,
     TransferTableHeaderPipe,
     MatSnackBar,
   ]

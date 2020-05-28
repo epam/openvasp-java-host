@@ -26,7 +26,7 @@
     <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" (click)="openTransferDialog('edit')" matTooltip="Edit transfer" matTooltipPosition="right">
       <mat-icon>create</mat-icon>
     </button>
-    <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" matTooltip="Delete transfer" matTooltipPosition="right">
+    <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" (click)="openDeleteDialog()" matTooltip="Delete transfer" matTooltipPosition="right">
       <mat-icon>delete</mat-icon>
       </button>
   </div>

@@ -18,6 +18,7 @@ import { TransferTableHeaderPipe } from './shared/pipes/transfer-table-header.pi
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DialogService } from './components/dialog/dialog.service';
 import { CounterpartyModule } from './components/counterparty/counterparty.module';
+import { DialogModule } from './components/dialog/dialog.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CounterpartyModule } from './components/counterparty/counterparty.modul
     AppRoutingModule,
     CommonModule,
     CounterpartyModule,
+    DialogModule,
     SharedModule,
     BrowserAnimationsModule,
     MatToolbarModule,

@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { TransferActionComponent } from '../transfer-action/transfer-action.component';
-import { tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { DialogService } from '../../dialog/dialog.service';
 import { TransferService } from '../transfer.service';
 import { Transfer, TransferDialogData } from '../../../core/models/transfer.model';
+import { DialogConfirmComponent } from '../../dialog/dialog-confirm/dialog-confirm.component';
+import { TransferDetailsService } from './transfer-details.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-transfer-details',
@@ -19,6 +22,8 @@ export class TransferDetailsComponent implements OnInit {
 
   constructor(private dialogService: DialogService,
               private transferService: TransferService,
+              private transferDetailsService: TransferDetailsService,
+              private snackBar: MatSnackBar,
               private cdr: ChangeDetectorRef
   ) {}
 
@@ -36,7 +41,11 @@ export class TransferDetailsComponent implements OnInit {
   }
 
   public openDeleteDialog(): void {
-    // this.dialogService.openDialog()
+    this.dialogService.openDialog(this.transferDialogData, DialogConfirmComponent, 'Are you sure?', '400px', '200px').pipe(
+      filter(data => Boolean(data)),
+      switchMap(() => this.transferDetailsService.deleteTransfer(this.transfer.id)),
+      tap(() => this.snackBar.open('Transfer was deleted', 'Close')),
+    ).subscribe();
   }
 
   private setTransferData(data: Transfer): void {
