@@ -14,16 +14,16 @@ export class CreateTransferFormService {
       sendAddr: new FormControl('', [Validators.required]),
       destAddr: new FormControl('', [Validators.required]),
       originatorId: new FormControl('', [Validators.required]),
-      beneficiaryId: new FormControl('', [Validators.required]),
-      // commentary: new FormControl()
+      beneficiaryId: new FormControl('', [Validators.required])
     });
   }
 
   public initForm(transfer: Transfer | {}): void {
     if (transfer) {
+      this.transferForm.controls.originatorId.setValue((transfer as Transfer).originator.id);
+      this.transferForm.controls.beneficiaryId.setValue((transfer as Transfer).beneficiary.id);
       this.transferForm.controls.assetType.setValue((transfer as Transfer).assetType);
       this.transferForm.controls.amount.setValue((transfer as Transfer).amount);
     }
-    // this.transferForm.controls.commentary.setValue(transfer.commentary);
   }
 }

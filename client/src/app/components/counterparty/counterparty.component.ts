@@ -51,7 +51,6 @@ export class CounterpartyComponent implements OnInit, AfterViewInit {
   private setCounterpartiesData(data: Counterparty[]): void {
     // this.pageSize = data.size;
     this.dataSource = new MatTableDataSource<Counterparty>(data);
-    console.log(data);
     this.dataSource.sort = this.sort;
     // this.resultsLength = data.totalElements;
     this.isLoadingResults = false;

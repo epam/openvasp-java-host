@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { DialogService } from '../../../core/services/dialog/dialog.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Transfer, TransferDialogData } from '../../../core/models/transfer.model';
@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create-transfer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateTransferComponent implements OnInit {
+export class CreateTransferComponent implements OnInit, OnDestroy {
   public assets = ASSETS;
 
   constructor(private dialogService: DialogService,
@@ -31,6 +31,10 @@ export class CreateTransferComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getCounterparties();
+  }
+
+  ngOnDestroy(): void {
+    this.transferForm.reset();
   }
 
   createTransaction(): void {

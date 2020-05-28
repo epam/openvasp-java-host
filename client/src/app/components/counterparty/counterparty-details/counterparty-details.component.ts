@@ -31,7 +31,6 @@ export class CounterpartyDetailsComponent implements OnInit {
 
 
   private setTransferData(data: Counterparty): void {
-    console.log(data);
     this.counterpartyData = data;
     this.isLoadingResults = false;
     this.cdr.markForCheck();
