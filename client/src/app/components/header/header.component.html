@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <div class="container">
+    <div class="header">
+      <p [routerLink]="'counterparties'" class="link">Counterparties</p>
+      <p [routerLink]="'transfers'" class="link">Transfers</p>
+      <p [routerLink]="'settings'" class="link">Settings</p>
+    </div>
+    <button mat-raised-button color="accent" (click)="openTransferDialog('Create transfer')" class="btn-create">Create transfer</button>
+  </div>
+</mat-toolbar>
