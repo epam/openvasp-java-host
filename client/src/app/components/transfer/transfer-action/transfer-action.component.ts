@@ -1,27 +1,27 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { DialogService } from '../../../core/services/dialog/dialog.service';
+import { DialogService } from '../../dialog/dialog.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Transfer, TransferDialogData } from '../../../core/models/transfer.model';
-import { CreateTransferFormService } from './create-transfer.form.service';
-import { CreateTransferService } from './create-transfer.service';
+import { TransferActionFormService } from './transfer-action.form.service';
+import { TransferActionService } from './transfer-action.service';
 import { ASSETS } from '../../../core/models/asset-types.data';
 import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-transfer',
-  templateUrl: './create-transfer.component.html',
-  styleUrls: ['./create-transfer.component.scss'],
+  templateUrl: './transfer-action.component.html',
+  styleUrls: ['./transfer-action.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateTransferComponent implements OnInit, OnDestroy {
+export class TransferActionComponent implements OnInit, OnDestroy {
   public assets = ASSETS;
 
   constructor(private dialogService: DialogService,
-              private createTransferFormService: CreateTransferFormService,
+              private createTransferFormService: TransferActionFormService,
               private cdr: ChangeDetectorRef,
               private snackBar: MatSnackBar,
-              public createTransferService: CreateTransferService,
+              public createTransferService: TransferActionService,
               @Inject(MAT_DIALOG_DATA) public transfer: TransferDialogData) {}
 
   get transferForm() {
@@ -37,9 +37,30 @@ export class CreateTransferComponent implements OnInit, OnDestroy {
     this.transferForm.reset();
   }
 
-  createTransaction(): void {
+  public transferAction(): void {
+    switch (this.transfer.type) {
+      case 'create':
+        this.createTransaction();
+        break;
+      case 'repeat':
+        this.createTransaction();
+        break;
+      case 'edit':
+        this.editTransaction();
+        break;
+    }
+  }
+
+  private createTransaction(): void {
     this.createTransferService.createTransfer(this.transferForm.value).pipe(
       tap(() => this.snackBar.open('Transaction was created', 'Close')),
+      tap(() => this.dialogService.closeDialog(true))
+    ).subscribe();
+  }
+
+  private editTransaction(): void {
+    this.createTransferService.editTransfer((this.transfer.transfer as Transfer).id, this.transferForm.value).pipe(
+      tap(() => this.snackBar.open('Transaction was edited', 'Close')),
       tap(() => this.dialogService.closeDialog(true))
     ).subscribe();
   }

@@ -51,7 +51,7 @@ export interface CreateTransferData {
 
 export interface TransferDialogData {
   transfer: Transfer | {};
-  title: string;
+  type: string;
 }
 
 export enum TransferType {

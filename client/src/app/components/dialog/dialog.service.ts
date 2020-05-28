@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { Transfer } from '../../models/transfer.model';
+import { Transfer } from '../../core/models/transfer.model';
 
 @Injectable()
 export class DialogService {

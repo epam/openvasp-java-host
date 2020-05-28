@@ -1,5 +1,5 @@
 <div class="container" *ngIf="transfer">
-  <h1 mat-dialog-title>{{transfer?.title}}</h1>
+  <h1 mat-dialog-title><span class="capitalize">{{transfer?.type}}</span> transfer</h1>
   <div mat-dialog-content>
     <form class="form" [formGroup]="transferForm">
       <div class="row">
@@ -65,7 +65,7 @@
     </form>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="createTransaction()" [disabled]="!transferForm.valid">Create</button>
+    <button mat-raised-button color="primary" (click)="transferAction()" [disabled]="!transferForm.valid"><span class="capitalize">{{transfer?.type}}</span></button>
     <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
   </div>
 </div>

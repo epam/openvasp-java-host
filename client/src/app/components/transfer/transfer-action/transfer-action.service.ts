@@ -7,7 +7,7 @@ import { CreateTransferData, Transfer } from '../../../core/models/transfer.mode
 import { DataProviderService } from '../../../core/services/data-provider/data-provider.service';
 
 @Injectable()
-export class CreateTransferService {
+export class TransferActionService {
   private counterparties = new BehaviorSubject<Counterparty[]>(undefined);
 
   public counterparties$ = this.counterparties.asObservable();
@@ -25,5 +25,9 @@ export class CreateTransferService {
 
   public createTransfer(data: CreateTransferData): Observable<Transfer> {
     return this.dataProvider.createTransfer(data);
+  }
+
+  public editTransfer(id: number, data: CreateTransferData): Observable<Transfer> {
+    return this.dataProvider.editTransfer(id, data);
   }
 }

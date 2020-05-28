@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { CreateTransferComponent } from '../create-transfer/create-transfer.component';
+import { TransferActionComponent } from '../transfer-action/transfer-action.component';
 import { tap } from 'rxjs/operators';
-import { DialogService } from '../../../core/services/dialog/dialog.service';
+import { DialogService } from '../../dialog/dialog.service';
 import { TransferService } from '../transfer.service';
 import { Transfer, TransferDialogData } from '../../../core/models/transfer.model';
 
@@ -14,7 +14,7 @@ import { Transfer, TransferDialogData } from '../../../core/models/transfer.mode
 export class TransferDetailsComponent implements OnInit {
   @Input() transfer: Transfer;
 
-  public transferDialogData: TransferDialogData = {transfer: {}, title: ''};
+  public transferDialogData: TransferDialogData = {transfer: {}, type: ''};
   public isLoadingResults = true;
 
   constructor(private dialogService: DialogService,
@@ -28,11 +28,15 @@ export class TransferDetailsComponent implements OnInit {
     ).subscribe();
   }
 
-  public openTransferDialog(title: string): void {
-    this.transferDialogData.title = title;
-    this.dialogService.openDialog(this.transferDialogData, CreateTransferComponent).pipe(
+  public openTransferDialog(type: string): void {
+    this.transferDialogData.type = type;
+    this.dialogService.openDialog(this.transferDialogData, TransferActionComponent).pipe(
       tap(data => data)
     ).subscribe();
+  }
+
+  public openDeleteDialog(): void {
+    // this.dialogService.openDialog()
   }
 
   private setTransferData(data: Transfer): void {

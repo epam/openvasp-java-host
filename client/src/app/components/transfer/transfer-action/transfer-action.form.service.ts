@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Transfer } from '../../../core/models/transfer.model';
 
 @Injectable()
-export class CreateTransferFormService {
+export class TransferActionFormService {
   public transferForm;
 
   constructor() {

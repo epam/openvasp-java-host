@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { DialogService } from '../../../core/services/dialog/dialog.service';
+import { DialogService } from '../../dialog/dialog.service';
 import { Counterparty } from '../../../core/models/counterparty.model';
 import { CounterpartyService } from '../counterparty.service';
 

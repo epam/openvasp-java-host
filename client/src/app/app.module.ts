@@ -16,7 +16,7 @@ import { TransferModule } from './components/transfer/transfer.module';
 import { CommonModule } from '@angular/common';
 import { TransferTableHeaderPipe } from './shared/pipes/transfer-table-header.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DialogService } from './core/services/dialog/dialog.service';
+import { DialogService } from './components/dialog/dialog.service';
 import { CounterpartyModule } from './components/counterparty/counterparty.module';
 
 @NgModule({

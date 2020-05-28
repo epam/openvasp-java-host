@@ -8,14 +8,14 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TransferTableHeaderPipe } from '../../shared/pipes/transfer-table-header.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CreateTransferComponent } from './create-transfer/create-transfer.component';
+import { TransferActionComponent } from './transfer-action/transfer-action.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TransferDetailsComponent } from './transfer-details/transfer-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateTransferFormService } from './create-transfer/create-transfer.form.service';
-import { CreateTransferService } from './create-transfer/create-transfer.service';
+import { TransferActionFormService } from './transfer-action/transfer-action.form.service';
+import { TransferActionService } from './transfer-action/transfer-action.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -42,17 +42,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   declarations: [
     TransferComponent,
     TransferTableHeaderPipe,
-    CreateTransferComponent,
+    TransferActionComponent,
     TransferDetailsComponent
   ],
   exports: [
     TransferComponent,
-    CreateTransferComponent,
+    TransferActionComponent,
     TransferDetailsComponent
   ],
   providers: [
-    CreateTransferService,
-    CreateTransferFormService,
+    TransferActionService,
+    TransferActionFormService,
     TransferService,
     TransferTableHeaderPipe,
     MatSnackBar,

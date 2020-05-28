@@ -23,7 +23,7 @@ export class DataProviderService {
   }
 
   public getTransfer(id: number): Observable<Transfer> {
-    return this.http.get(API_URL + 'transfers/' + `${id}`).pipe(
+    return this.http.get(API_URL + `transfers/${id}`).pipe(
       map(this.extractData),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('transfers'))
@@ -32,6 +32,14 @@ export class DataProviderService {
 
   public createTransfer(data: CreateTransferData): Observable<Transfer> {
     return this.http.post(API_URL + 'transfers', data).pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('create transfer'))
+    );
+  }
+
+  public editTransfer(id: number, data: CreateTransferData): Observable<Transfer> {
+    return this.http.put(API_URL + `transfers/${id}`, data).pipe(
       map(this.extractData),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('create transfer'))
