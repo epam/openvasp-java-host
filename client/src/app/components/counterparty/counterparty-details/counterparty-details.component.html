@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div *ngIf="counterpartyData" class="container">
+    <div class="column">
+      <p>Counterparty ID: {{counterpartyData?.id}}</p>
+      <p>Name: {{counterpartyData?.name}}</p>
+      <p>Counterparty type: {{counterpartyData?.type}}</p>
+      <p>Counterparty VAAN: {{counterpartyData?.vaan}}</p>
+      <p>Postal Address: {{counterpartyData.postalAddress?.adrline}}</p>
+    </div>
+    <div class="column">
+      <p *ngFor="let natId of counterpartyData.natIds">ID: {{natId.idStr}} Country: {{natId.country}} Issuer: {{natId.issuer}} Type: {{natId.idType}}</p>
+    </div>
+    <div class="column">
+      <p *ngFor="let jurId of counterpartyData.jurIds">ID: {{jurId.idStr}} Country: {{jurId.country}} Issuer: {{jurId.issuer}} Type: {{jurId.idType}}</p>
+    </div>
+  </div>
+
+</div>

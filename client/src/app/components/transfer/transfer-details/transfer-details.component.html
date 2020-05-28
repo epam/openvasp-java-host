@@ -1,0 +1,26 @@
+<div class="loading-shade"
+     *ngIf="isLoadingResults || !transferDialogData.transfer">
+  <mat-spinner *ngIf="isLoadingResults || !transferDialogData.transfer"></mat-spinner>
+</div>
+<div *ngIf="transferDialogData?.transfer" class="container">
+  <div class="column">
+    <p>Transaction ID: {{transfer.id}}</p>
+    <p>Transaction type: {{transfer.trType}}</p>
+    <p>Date: {{transfer.created | date: 'dd/MM/yyyy'}}</p>
+    <p>Session ID: {{transfer.sessionId}}</p>
+  </div>
+  <div class="column">
+    <p>Originator name: {{transfer.originator.name}}</p>
+    <p>Originator VASP VAAN:{{transfer.originator.vaan}}</p>
+    <p>Beneficiary name: {{transfer.beneficiary.name}}</p>
+    <p>Beneficiary VASP VAAN: {{transfer.beneficiary.vaan}}</p>
+  </div>
+  <div class="column">
+    <p>Asset: {{transfer.assetType}}</p>
+    <p>Amount: {{transfer.amount}}</p>
+  </div>
+  <div class="column action">
+    <button *ngIf="transfer.trType === 'OUTGOING'" mat-raised-button color="primary" (click)="openTransferDialog('Repeat transfer')">Repeat transfer</button>
+    <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" (click)="openTransferDialog('Edit transfer')">Edit transfer</button>
+  </div>
+</div>

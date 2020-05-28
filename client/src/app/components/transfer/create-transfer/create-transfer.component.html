@@ -1,0 +1,71 @@
+<div class="container" *ngIf="transfer">
+  <h1 mat-dialog-title>{{transfer?.title}}</h1>
+  <div mat-dialog-content>
+    <form class="form" [formGroup]="transferForm">
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Originator</mat-label>
+            <mat-select [formControl]="transferForm.controls['originatorId']">
+              <mat-option *ngFor="let counterparty of createTransferService.counterparties$ | async" [value]="counterparty.id">
+                {{counterparty.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Beneficiary</mat-label>
+            <mat-select [formControl]="transferForm.controls['beneficiaryId']">
+              <mat-option *ngFor="let counterparty of createTransferService.counterparties$ | async" [value]="counterparty.id">
+                {{counterparty.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Asset</mat-label>
+            <mat-select [formControl]="transferForm.controls['assetType']">
+              <mat-option *ngFor="let asset of assets" [value]="asset">
+                {{asset}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input matInput placeholder="Amount" [formControl]="transferForm.controls['amount']" type="number">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Sender address</mat-label>
+            <input matInput placeholder="Sender address" [formControl]="transferForm.controls['sendAddr']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Destination address</mat-label>
+            <input matInput placeholder="Destination address" [formControl]="transferForm.controls['destAddr']">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row full-width">
+        <mat-form-field>
+          <mat-label>Hash</mat-label>
+          <input matInput placeholder="Hash" [formControl]="transferForm.controls['txHash']">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="createTransaction()" [disabled]="!transferForm.valid">Create</button>
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  </div>
+</div>
