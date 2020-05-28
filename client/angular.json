@@ -61,6 +61,22 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "staging-1": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging-1.ts"
+                }
+              ]
+            },
+            "staging-2": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging-2.ts"
+                }
+              ]
             }
           }
         },
@@ -72,6 +88,12 @@
           "configurations": {
             "production": {
               "browserTarget": "vast:build:production"
+            },
+            "staging-1": {
+              "browserTarget": "vast:build:staging-1"
+            },
+            "staging-2": {
+              "browserTarget": "vast:build:staging-2"
             }
           }
         },
