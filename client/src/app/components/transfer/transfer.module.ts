@@ -19,6 +19,8 @@ import { CreateTransferService } from './create-transfer/create-transfer.service
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -33,7 +35,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatInputModule,
     ReactiveFormsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   declarations: [
     TransferComponent,
