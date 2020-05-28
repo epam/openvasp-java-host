@@ -43,6 +43,7 @@ export class TransferComponent implements OnInit, AfterViewInit {
   }
 
   private getTransfers(pageIndex: number, pageSize: number): void {
+    this.isLoadingResults = true;
     this.transferService.getTransfers(pageIndex, pageSize).pipe(
       tap(data => this.setTransfersData(data))
     ).subscribe();

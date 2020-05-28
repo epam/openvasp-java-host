@@ -36,8 +36,8 @@ export class TransferDetailsComponent implements OnInit {
   }
 
   private setTransferData(data: Transfer): void {
-    this.transferDialogData.transfer = data;
     this.isLoadingResults = false;
+    this.transferDialogData.transfer = data;
     this.cdr.markForCheck();
   }
 }

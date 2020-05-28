@@ -1,8 +1,8 @@
 <div class="loading-shade"
-     *ngIf="isLoadingResults || !transferDialogData.transfer">
-  <mat-spinner *ngIf="isLoadingResults || !transferDialogData.transfer"></mat-spinner>
+     *ngIf="isLoadingResults">
+  <mat-spinner></mat-spinner>
 </div>
-<div *ngIf="transferDialogData?.transfer" class="container">
+<div *ngIf="!isLoadingResults" class="container">
   <div class="column">
     <p>Transaction ID: {{transfer.id}}</p>
     <p>Transaction type: {{transfer.trType}}</p>

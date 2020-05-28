@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://ecsd00300b97.epam.com:808/api/v1/'
+  apiUrl: 'http://ecsd00300b97.epam.com:8080/api/v1/'
 };
 
 /*
