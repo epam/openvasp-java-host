@@ -16,7 +16,7 @@
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let item" [attr.colspan]="columnsToDisplay.length">
           <div class="item-detail" >
-            <app-transfer-details *ngIf='item == expandedItem' [transfer]="item"></app-transfer-details>
+            <app-transfer-details *ngIf='item == expandedItem' [transfer]="item" (completedAction)="onCompletedAction($event)"></app-transfer-details>
           </div>
         </td>
       </ng-container>

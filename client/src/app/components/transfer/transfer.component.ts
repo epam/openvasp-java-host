@@ -38,8 +38,12 @@ export class TransferComponent implements OnInit, AfterViewInit {
     this.getTransfers(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
-  getPaginatorData(event: PageEvent): void {
+  public getPaginatorData(event: PageEvent): void {
     this.getTransfers(event.pageIndex, event.pageSize);
+  }
+
+  public onCompletedAction(event): void {
+    this.getTransfers(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
   private getTransfers(pageIndex: number, pageSize: number): void {

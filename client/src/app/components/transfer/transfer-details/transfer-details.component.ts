@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { TransferActionComponent } from '../transfer-action/transfer-action.component';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { DialogService } from '../../dialog/dialog.service';
@@ -16,6 +24,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TransferDetailsComponent implements OnInit {
   @Input() transfer: Transfer;
+  @Output() completedAction: EventEmitter<boolean> = new EventEmitter();
 
   public transferDialogData: TransferDialogData = {transfer: {}, type: ''};
   public isLoadingResults = true;
@@ -36,15 +45,26 @@ export class TransferDetailsComponent implements OnInit {
   public openTransferDialog(type: string): void {
     this.transferDialogData.type = type;
     this.dialogService.openDialog(this.transferDialogData, TransferActionComponent).pipe(
-      tap(data => data)
+      filter(data => Boolean(data)),
+      tap(() => this.completedAction.emit(true)),
     ).subscribe();
   }
 
   public openDeleteDialog(): void {
-    this.dialogService.openDialog(this.transferDialogData, DialogConfirmComponent, 'Are you sure?', '400px', '200px').pipe(
+    this.dialogService.openDialog(this.transferDialogData, DialogConfirmComponent, 'Are you sure you want to delete?', '400px', '150px').pipe(
       filter(data => Boolean(data)),
       switchMap(() => this.transferDetailsService.deleteTransfer(this.transfer.id)),
+      tap(() => this.completedAction.emit(true)),
       tap(() => this.snackBar.open('Transfer was deleted', 'Close')),
+    ).subscribe();
+  }
+
+  public onCommandClick(event): void {
+    this.dialogService.openDialog(this.transferDialogData, DialogConfirmComponent, `Are you sure you want to ${event}?`, '600px', '150px').pipe(
+      filter(data => Boolean(data)),
+      switchMap(() => this.transferDetailsService.commandTransfer(this.transfer.id, event)),
+      tap(() => this.completedAction.emit(true)),
+      tap(() => this.snackBar.open(`${event} was sent`, 'Close')),
     ).subscribe();
   }
 

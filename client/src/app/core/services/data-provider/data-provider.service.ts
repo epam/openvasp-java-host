@@ -54,6 +54,14 @@ export class DataProviderService {
     );
   }
 
+  public commandTransfer(id: number, command: string): Observable<Transfer> {
+    return this.http.post(API_URL + `transfers/${id}/command/${command}`, {}).pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('command transfer'))
+    )
+  }
+
   public getCounterparties(): Observable<Counterparty[]> {
     return this.http.get(API_URL + 'counterparties/all').pipe(
       map(this.extractData),

@@ -13,4 +13,8 @@ export class TransferDetailsService {
   public deleteTransfer(id: number): Observable<Transfer> {
     return this.dataProvider.deleteTransfer(id);
   }
+
+  public commandTransfer(id: number, command: string): Observable<Transfer> {
+    return this.dataProvider.commandTransfer(id, command);
+  }
 }

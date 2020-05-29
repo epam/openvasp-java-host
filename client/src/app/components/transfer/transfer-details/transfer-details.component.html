@@ -20,14 +20,19 @@
     <p>Amount: {{transfer.amount}}</p>
   </div>
   <div class="column action">
-    <button *ngIf="transfer.trType === 'OUTGOING'" mat-raised-button color="primary" (click)="openTransferDialog('repeat')" matTooltip="Repeat transfer" matTooltipPosition="right">
-      <mat-icon>repeat</mat-icon>
-    </button>
-    <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" (click)="openTransferDialog('edit')" matTooltip="Edit transfer" matTooltipPosition="right">
-      <mat-icon>create</mat-icon>
-    </button>
-    <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" (click)="openDeleteDialog()" matTooltip="Delete transfer" matTooltipPosition="right">
-      <mat-icon>delete</mat-icon>
+<!--    <div class="row">-->
+      <button *ngIf="transfer.trType === 'OUTGOING'" mat-raised-button color="primary" (click)="openTransferDialog('repeat')" matTooltip="Repeat transfer" matTooltipPosition="above">
+        <mat-icon>repeat</mat-icon>
       </button>
+      <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" (click)="openTransferDialog('edit')" matTooltip="Edit transfer" matTooltipPosition="above">
+        <mat-icon>create</mat-icon>
+      </button>
+      <button *ngIf="transfer.trType === 'OUTGOING' && transfer.trStatus === 'CREATED'" mat-raised-button color="primary" (click)="openDeleteDialog()" matTooltip="Delete transfer" matTooltipPosition="above">
+        <mat-icon>delete</mat-icon>
+      </button>
+<!--    </div>-->
+  </div>
+  <div class="column">
+    <app-transfer-command [transfer]="transfer" (command)="onCommandClick($event)"></app-transfer-command>
   </div>
 </div>
