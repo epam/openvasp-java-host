@@ -88,7 +88,6 @@
     "no-magic-numbers": true,
     "typedef": true,
     "no-shadowed-variable": true,
-    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "triple-equals": true,
