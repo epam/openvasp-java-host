@@ -21,6 +21,6 @@ export class HeaderComponent {
   }
 
   public openCounterpartyDialog(type: string): void {
-    this.dialogService.openDialog({type}, CounterpartyActionComponent).subscribe();
+    this.dialogService.openDialog({type}, CounterpartyActionComponent, '', '900px', '850px').subscribe();
   }
 }

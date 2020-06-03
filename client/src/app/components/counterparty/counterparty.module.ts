@@ -4,7 +4,7 @@ import { CounterpartyComponent } from './counterparty.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CounterpartyDetailsComponent } from './counterparty-details/counterparty-details.component';
 import { CounterpartyActionComponent } from './counterparty-action/counterparty-action.component';
 import { MatIconModule } from '@angular/material/icon';

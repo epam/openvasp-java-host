@@ -97,7 +97,7 @@
     "one-variable-per-declaration": true,
     "import-spacing": true,
     "no-duplicate-imports": true,
-    "semicolon": true
+    "semicolon": true,
   },
   "rulesDirectory": [
     "codelyzer"

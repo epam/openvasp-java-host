@@ -14,6 +14,12 @@ export class VASPService {
     )
   }
 
+  public getCurrentVASP(): Observable<VASP> {
+    return this.dataProvider.getCurrentVASP().pipe(
+      tap(data => data)
+    )
+  }
+
   public getVAAN(vaspCode: string, customerNumber: string): Observable<string> {
     return this.dataProvider.getVAAN(vaspCode, customerNumber).pipe(
       tap(data => data)

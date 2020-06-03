@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { CreateTransferData, Transfer, TransferResponse } from '../../models/transfer.model';
 import { Counterparty } from '../../models/counterparty.model';
 import { VASP } from '../../models/vasp.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const API_URL = environment.apiUrl;
 
@@ -13,7 +14,10 @@ const API_URL = environment.apiUrl;
   providedIn: 'root'
 })
 export class DataProviderService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) {}
 
   public getTransfers(): Observable<TransferResponse> {
     return this.http.get(API_URL + 'transfers').pipe(
@@ -34,6 +38,7 @@ export class DataProviderService {
   public createTransfer(data: CreateTransferData): Observable<Transfer> {
     return this.http.post(API_URL + 'transfers', data).pipe(
       map(this.extractData),
+      tap(() => this.snackBar.open('Transfer was created', 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('create transfer'))
     );
@@ -42,6 +47,7 @@ export class DataProviderService {
   public editTransfer(id: number, data: CreateTransferData): Observable<Transfer> {
     return this.http.put(API_URL + `transfers/${id}`, data).pipe(
       map(this.extractData),
+      tap(() => this.snackBar.open('Transfer was edited', 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('edit transfer'))
     );
@@ -50,6 +56,7 @@ export class DataProviderService {
   public deleteTransfer(id: number): Observable<Transfer> {
     return this.http.delete(API_URL + `transfers/${id}`).pipe(
       map(this.extractData),
+      tap(() => this.snackBar.open('Transfer was deleted', 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('delete transfer'))
     );
@@ -58,6 +65,7 @@ export class DataProviderService {
   public commandTransfer(id: number, command: string): Observable<Transfer> {
     return this.http.post(API_URL + `transfers/${id}/command/${command}`, {}).pipe(
       map(this.extractData),
+      tap(() => this.snackBar.open(`${command} was sent`, 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('command transfer'))
     )
@@ -82,6 +90,7 @@ export class DataProviderService {
   public editCounterparty(id: number, counterparty: Counterparty): Observable<Counterparty> {
     return this.http.put(API_URL + `counterparties/${id}`, counterparty).pipe(
       map(this.extractData),
+      tap(() => this.snackBar.open('Counterparty was edited', 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('update counterparty'))
     )
@@ -90,6 +99,7 @@ export class DataProviderService {
   public deleteCounterparty(id: number): Observable<Counterparty> {
     return this.http.delete(API_URL + `counterparties/${id}`).pipe(
       map(this.extractData),
+      tap(() => this.snackBar.open('Transfer was deleted', 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('delete counterparty'))
     )
@@ -98,6 +108,7 @@ export class DataProviderService {
   public createCounterparty(counterparty: Counterparty): Observable<Counterparty> {
     return this.http.post(API_URL + 'counterparties', counterparty).pipe(
       map(this.extractData),
+      tap(() => this.snackBar.open('Counterparty was created', 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('update counterparty'))
     )
@@ -111,9 +122,17 @@ export class DataProviderService {
     )
   }
 
-  public getVAAN(vaspCode: string, customerNumber: string): Observable<string> {
-    return this.http.get(API_URL + `vaan/${vaspCode}/${customerNumber}`).pipe(
+  public getCurrentVASP(): Observable<VASP> {
+    return this.http.get(API_URL + 'vasp/current').pipe(
       map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('get current vasp'))
+    )
+  }
+
+  public getVAAN(vaspCode: string, customerNumber: string): Observable<string> {
+    return this.http.get(API_URL + `vaan/${vaspCode}/${customerNumber}`, {responseType: 'text'}).pipe(
+      map((res: string) => res),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('get vaan'))
     )
@@ -122,20 +141,12 @@ export class DataProviderService {
   private handleError<T>(operation = 'operation', result?: T) {
     // tslint:disable-next-line:no-any
     return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
+      this.snackBar.open(`${operation} failed: ${error.message}`, 'Close');
+      return of(result as T);  // Let the app keep running by returning an empty result.
     };
   }
 
   private extractData(res: Response) {
-    const body = res;
-    return body || { };
+    return res || { };
   }
 }

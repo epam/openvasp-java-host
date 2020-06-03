@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
 import { DialogService } from '../../dialog/dialog.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Transfer, TransferDialogData } from '../../../core/models/transfer.model';
 import { TransferActionFormService } from './transfer-action.form.service';
 import { TransferActionService } from './transfer-action.service';
 import { ASSETS } from '../../../core/models/asset-types.data';
-import { tap } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-transfer',
@@ -20,7 +19,6 @@ export class TransferActionComponent implements OnInit, OnDestroy {
   constructor(private dialogService: DialogService,
               private createTransferFormService: TransferActionFormService,
               private cdr: ChangeDetectorRef,
-              private snackBar: MatSnackBar,
               public createTransferService: TransferActionService,
               @Inject(MAT_DIALOG_DATA) public transfer: TransferDialogData) {}
 
@@ -53,14 +51,12 @@ export class TransferActionComponent implements OnInit, OnDestroy {
 
   private createTransaction(): void {
     this.createTransferService.createTransfer(this.transferForm.value).pipe(
-      tap(() => this.snackBar.open('Transfer was created', 'Close')),
       tap(() => this.dialogService.closeDialog(true))
     ).subscribe();
   }
 
   private editTransaction(): void {
     this.createTransferService.editTransfer((this.transfer.transfer as Transfer).id, this.transferForm.value).pipe(
-      tap(() => this.snackBar.open('Transfer was edited', 'Close')),
       tap(() => this.dialogService.closeDialog(true))
     ).subscribe();
   }

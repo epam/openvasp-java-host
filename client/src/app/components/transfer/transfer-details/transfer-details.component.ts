@@ -55,7 +55,6 @@ export class TransferDetailsComponent implements OnInit {
       filter(data => Boolean(data)),
       switchMap(() => this.transferDetailsService.deleteTransfer(this.transfer.id)),
       tap(() => this.completedAction.emit(true)),
-      tap(() => this.snackBar.open('Transfer was deleted', 'Close')),
     ).subscribe();
   }
 
@@ -63,8 +62,7 @@ export class TransferDetailsComponent implements OnInit {
     this.dialogService.openDialog(this.transferDialogData, DialogConfirmComponent, `Are you sure you want to ${event}?`, '600px', '150px').pipe(
       filter(data => Boolean(data)),
       switchMap(() => this.transferDetailsService.commandTransfer(this.transfer.id, event)),
-      tap(() => this.completedAction.emit(true)),
-      tap(() => this.snackBar.open(`${event} was sent`, 'Close')),
+      tap(() => this.completedAction.emit(true))
     ).subscribe();
   }
 

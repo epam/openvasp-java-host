@@ -12,7 +12,6 @@ import { DialogService } from '../../dialog/dialog.service';
 import { Counterparty } from '../../../core/models/counterparty.model';
 import { CounterpartyService } from '../counterparty.service';
 import { DialogConfirmComponent } from '../../dialog/dialog-confirm/dialog-confirm.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CounterpartyActionComponent } from '../counterparty-action/counterparty-action.component';
 
 @Component({
@@ -31,7 +30,6 @@ export class CounterpartyDetailsComponent implements OnInit {
   constructor(
     private counterpartyService: CounterpartyService,
     private dialogService: DialogService,
-    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -40,7 +38,7 @@ export class CounterpartyDetailsComponent implements OnInit {
   }
 
   openCounterpartyDialog(type: string): void {
-    this.dialogService.openDialog({type}, CounterpartyActionComponent).subscribe();
+    this.dialogService.openDialog({type}, CounterpartyActionComponent, '', '900px', '850px').subscribe();
   }
 
   public openDeleteDialog(): void {
@@ -48,7 +46,6 @@ export class CounterpartyDetailsComponent implements OnInit {
       filter(data => Boolean(data)),
       switchMap(() => this.counterpartyService.deleteCounterparty(this.counterparty.id)),
       tap(() => this.completedAction.emit(true)),
-      tap(() => this.snackBar.open('Transfer was deleted', 'Close')),
     ).subscribe();
   }
 

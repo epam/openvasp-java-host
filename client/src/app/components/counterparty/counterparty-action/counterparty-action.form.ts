@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Counterparty } from '../../../core/models/counterparty.model';
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 export class CounterpartyActionFormService {
@@ -9,7 +10,8 @@ export class CounterpartyActionFormService {
   constructor() {
     this.counterpartyForm = new FormGroup({
       type: new FormControl('', [Validators.required]),
-      vaan: new FormControl('', [Validators.required, Validators.pattern('([0-9a-fA-F]){8}')]),
+      vaan: new FormControl(''),
+      customerNr: new FormControl('', [Validators.required, Validators.pattern('([0-9a-fA-F]){14}')]),
       name: new FormControl('', [Validators.required]),
       bic: new FormControl('', [Validators.required]),
       birth: new FormGroup({
@@ -38,6 +40,16 @@ export class CounterpartyActionFormService {
         idType: new FormControl('', [Validators.required]),
       })
     });
+  }
+
+  public setVAAN(vaan: string): void {
+    this.counterpartyForm.controls.vaan.setValue(vaan);
+  }
+
+  public processBeforeSend(): void {
+    const date = new Date(this.counterpartyForm.controls.birth.controls.birthDate.value);
+    this.counterpartyForm.controls.birth.controls.birthDate.setValue(date.getFullYear() + '-' + ('0'+(date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2));
+    this.counterpartyForm.removeControl('customerNr');
   }
 
   public initForm(counterparty: Counterparty | {}): void {

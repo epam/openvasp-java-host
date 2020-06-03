@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Counterparty, CounterpartyDialogData } from '../../../core/models/counterparty.model';
 import { CounterpartyActionFormService } from './counterparty-action.form';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { CounterpartyService } from '../counterparty.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogService } from '../../dialog/dialog.service';
 import { COUNTERPARTY_TYPES, JUR_ID_TYPES, NAT_ID_TYPES } from '../../../core/models/nat-jur-counterparty-types.data';
+import { COUNTRIES } from '../../../core/models/countries.data';
+import { VASPService } from '../../vasp/vasp.service';
+import { VASP } from '../../../core/models/vasp.model';
 
 @Component({
   selector: 'app-counterparty-action',
@@ -14,15 +16,17 @@ import { COUNTERPARTY_TYPES, JUR_ID_TYPES, NAT_ID_TYPES } from '../../../core/mo
   styleUrls: ['./counterparty-action.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CounterpartyActionComponent implements OnInit {
+export class CounterpartyActionComponent implements OnInit, OnDestroy {
   public counterpartyTypes = COUNTERPARTY_TYPES;
   public natIdTypes = NAT_ID_TYPES;
   public jurIdTypes = JUR_ID_TYPES;
+  public countries = COUNTRIES;
+  public currentVASP: VASP;
 
   constructor(
     private counterpartyService: CounterpartyService,
     private counterpartyActionFormService: CounterpartyActionFormService,
-    private snackBar: MatSnackBar,
+    private vaspService: VASPService,
     private dialogService: DialogService,
     @Inject(MAT_DIALOG_DATA) public counterparty: CounterpartyDialogData
   ) {}
@@ -33,6 +37,11 @@ export class CounterpartyActionComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.counterparty);
+    this.getCurrentVASP();
+  }
+
+  ngOnDestroy(): void {
+    this.counterpartyForm.reset();
   }
 
   public counterpartyAction(): void {
@@ -50,17 +59,31 @@ export class CounterpartyActionComponent implements OnInit {
   }
 
   private createCounterparty(): void {
-    console.log(this.counterpartyForm.value);
-    // this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
-    //   tap(() => this.snackBar.open('Counterparty was created', 'Close')),
-    //   tap(() => this.dialogService.closeDialog(true))
-    // ).subscribe();
+    this.vaspService.getVAAN(this.currentVASP.vaspCode, this.counterpartyForm.value.customerNr).pipe(
+      tap(data => this.setVAAN(data)),
+      tap(() => this.counterpartyActionFormService.processBeforeSend()),
+      // tap(() => console.log(this.counterpartyForm.value))
+      switchMap(() => this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
+          // tap(() => this.snackBar.open('Counterparty was created', 'Close')),
+          tap(() => this.dialogService.closeDialog(true)),
+      ))
+    ).subscribe()
   }
 
   private editCounterparty(): void {
     this.counterpartyService.editCounterparty((this.counterparty.counterparty as Counterparty).id, this.counterpartyForm.value).pipe(
-      tap(() => this.snackBar.open('Counterparty was edited', 'Close')),
       tap(() => this.dialogService.closeDialog(true))
     ).subscribe();
+  }
+
+  private getCurrentVASP(): void {
+    this.vaspService.getCurrentVASP().pipe(
+      tap(data => this.currentVASP = data),
+      tap(() => console.log(this.currentVASP))
+    ).subscribe();
+  }
+
+  private setVAAN(vaan: string): void {
+    this.counterpartyActionFormService.setVAAN(vaan);
   }
 }

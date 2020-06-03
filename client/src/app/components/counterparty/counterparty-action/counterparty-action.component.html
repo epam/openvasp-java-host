@@ -16,23 +16,24 @@
         </div>
         <div class="column">
           <mat-form-field>
-            <mat-label>VAAN</mat-label>
-            <input matInput autocomplete="off" placeholder="VAAN" [formControl]="counterpartyForm.controls['vaan']">
+            <mat-label>BIC</mat-label>
+            <input matInput autocomplete="off" placeholder="BIC" [formControl]="counterpartyForm.controls['bic']">
           </mat-form-field>
         </div>
-      </div>
-
-      <div class="row">
         <div class="column">
           <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput autocomplete="off" placeholder="Name" [formControl]="counterpartyForm.controls['name']">
           </mat-form-field>
         </div>
-        <div class="column">
+      </div>
+
+      <div class="row">
+        <div class="column full-width">
           <mat-form-field>
-            <mat-label>BIC</mat-label>
-            <input matInput autocomplete="off" placeholder="BIC" [formControl]="counterpartyForm.controls['bic']">
+            <mat-label>Customer Number</mat-label>
+            <input matInput autocomplete="off" placeholder="Customer number" [formControl]="counterpartyForm.controls['customerNr']">
+            <mat-hint>Hexidecimal number (14 symbols). For example: 1234567890ABCD</mat-hint>
           </mat-form-field>
         </div>
       </div>
@@ -50,13 +51,13 @@
         <div class="column">
           <mat-form-field>
             <mat-label>Birth Country</mat-label>
-            <input matInput autocomplete="off" placeholder="Birth Country"
-                   [formControl]="counterpartyForm.controls['birth'].controls['birthCountry']">
+            <mat-select [formControl]="counterpartyForm.controls['birth'].controls['birthCountry']">
+              <mat-option *ngFor="let country of countries" [value]="country.value">
+                {{country.text}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-      </div>
-
-      <div class="row">
         <div class="column">
           <mat-form-field color="accent">
             <mat-label>Birth Date</mat-label>
@@ -85,8 +86,6 @@
                    [formControl]="counterpartyForm.controls['postalAddress'].controls['number']">
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
         <div class="column">
           <mat-form-field>
             <mat-label>Address line</mat-label>
@@ -94,6 +93,9 @@
                    [formControl]="counterpartyForm.controls['postalAddress'].controls['adrline']">
           </mat-form-field>
         </div>
+      </div>
+
+      <div class="row">
         <div class="column">
           <mat-form-field>
             <mat-label>Postal code</mat-label>
@@ -101,8 +103,6 @@
                    [formControl]="counterpartyForm.controls['postalAddress'].controls['postCode']">
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
         <div class="column">
           <mat-form-field>
             <mat-label>Town</mat-label>
@@ -113,8 +113,11 @@
         <div class="column">
           <mat-form-field>
             <mat-label>Country</mat-label>
-            <input matInput autocomplete="off" placeholder="Country"
-                   [formControl]="counterpartyForm.controls['postalAddress'].controls['country']">
+            <mat-select [formControl]="counterpartyForm.controls['postalAddress'].controls['country']">
+              <mat-option *ngFor="let country of countries" [value]="country.value">
+                {{country.text}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -122,30 +125,33 @@
       <h3>Nat IDS</h3>
 
       <div class="row">
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>ID String</mat-label>
             <input matInput autocomplete="off" placeholder="ID String"
                    [formControl]="counterpartyForm.controls['natIds'].controls['idStr']">
           </mat-form-field>
         </div>
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>Country</mat-label>
-            <input matInput autocomplete="off" placeholder="Country"
-                   [formControl]="counterpartyForm.controls['natIds'].controls['country']">
+            <mat-select [formControl]="counterpartyForm.controls['natIds'].controls['country']">
+              <mat-option *ngFor="let country of countries" [value]="country.value">
+                {{country.text}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>Issuer</mat-label>
             <input matInput autocomplete="off" placeholder="Issuer"
                    [formControl]="counterpartyForm.controls['natIds'].controls['issuer']">
           </mat-form-field>
         </div>
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>ID Type</mat-label>
             <mat-select [formControl]="counterpartyForm.controls['natIds'].controls['idType']">
@@ -160,30 +166,33 @@
       <h3>Jur IDS</h3>
 
       <div class="row">
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>ID String</mat-label>
             <input matInput autocomplete="off" placeholder="ID String"
                    [formControl]="counterpartyForm.controls['jurIds'].controls['idStr']">
           </mat-form-field>
         </div>
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>Country</mat-label>
-            <input matInput autocomplete="off" placeholder="Country"
-                   [formControl]="counterpartyForm.controls['jurIds'].controls['country']">
+            <mat-select [formControl]="counterpartyForm.controls['jurIds'].controls['country']">
+              <mat-option *ngFor="let country of countries" [value]="country.value">
+                {{country.text}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>Issuer</mat-label>
             <input matInput autocomplete="off" placeholder="Issuer"
                    [formControl]="counterpartyForm.controls['jurIds'].controls['issuer']">
           </mat-form-field>
         </div>
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>ID Type</mat-label>
             <mat-select [formControl]="counterpartyForm.controls['jurIds'].controls['idType']">
@@ -198,7 +207,7 @@
     </form>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="counterpartyAction()" [disabled]="false"><span
+    <button mat-raised-button color="primary" (click)="counterpartyAction()" [disabled]="!counterpartyForm.valid"><span
       class="capitalize">{{counterparty?.type}}</span></button>
     <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
   </div>

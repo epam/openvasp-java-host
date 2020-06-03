@@ -23,9 +23,17 @@
       .column {
         display: flex;
         flex-direction: column;
-        width: 50%;
+        width: 30%;
 
-        &:nth-child(2) {
+        &.half-width {
+          width: 50%;
+        }
+
+        &.full-width {
+          width: 100%;
+        }
+
+        &:not(:first-child) {
           margin-left: 100px;
         }
       }
