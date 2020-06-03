@@ -97,7 +97,6 @@
     "one-variable-per-declaration": true,
     "import-spacing": true,
     "no-duplicate-imports": true,
-    "grouped-imports": true,
     "semicolon": true
   },
   "rulesDirectory": [
