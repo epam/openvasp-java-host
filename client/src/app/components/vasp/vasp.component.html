@@ -1,0 +1,28 @@
+<div class="mat-elevation-z8">
+  <div class="loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+
+  <div class="table-container">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let vasp"> {{vasp.id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="vaspCode">
+        <mat-header-cell *matHeaderCellDef> VASP Code </mat-header-cell>
+        <mat-cell *matCellDef="let vasp"> {{vasp.vaspCode}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let vasp"> {{vasp.name}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+    </mat-table>
+  </div>
+</div>

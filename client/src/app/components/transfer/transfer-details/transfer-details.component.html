@@ -10,10 +10,10 @@
     <p>Session ID: {{transfer.sessionId}}</p>
   </div>
   <div class="column">
-    <p>Originator name: {{transfer.originator.name}}</p>
-    <p>Originator VASP VAAN:{{transfer.originator.vaan}}</p>
-    <p>Beneficiary name: {{transfer.beneficiary.name}}</p>
-    <p>Beneficiary VASP VAAN: {{transfer.beneficiary.vaan}}</p>
+    <p>Originator name: {{transfer.originator?.name}}</p>
+    <p>Originator VASP VAAN:{{transfer.originator?.vaan}}</p>
+    <p>Beneficiary name: {{transfer.beneficiary?.name}}</p>
+    <p>Beneficiary VASP VAAN: {{transfer.beneficiary?.vaan}}</p>
   </div>
   <div class="column">
     <p>Asset: {{transfer.assetType}}</p>

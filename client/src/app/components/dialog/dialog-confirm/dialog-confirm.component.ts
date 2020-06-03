@@ -15,7 +15,6 @@ export class DialogConfirmComponent {
   ) {}
 
   public confirm(): void {
-    console.log('close');
     this.dialogService.closeDialog(true)
   }
 }

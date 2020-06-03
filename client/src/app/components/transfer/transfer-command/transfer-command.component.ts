@@ -12,6 +12,6 @@ export class TransferCommandComponent implements OnInit {
   @Output() command: EventEmitter<string> = new EventEmitter();
 
   ngOnInit(): void {
-    console.log(this.transfer);
+    // console.log(this.transfer);
   }
 }

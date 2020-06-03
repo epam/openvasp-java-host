@@ -32,3 +32,8 @@ export interface PostalAddress {
   street: string;
   town: string;
 }
+
+export interface CounterpartyDialogData {
+  counterparty: Counterparty | {};
+  type: string;
+}

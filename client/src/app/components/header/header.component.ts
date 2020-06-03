@@ -1,17 +1,26 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TransferActionComponent } from '../transfer/transfer-action/transfer-action.component';
 import { DialogService } from '../dialog/dialog.service';
+import { Router } from '@angular/router';
+import { CounterpartyActionComponent } from '../counterparty/counterparty-action/counterparty-action.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  constructor(private dialogService: DialogService) {}
+  constructor(
+    private dialogService: DialogService,
+    public router: Router
+  ) {}
 
   public openTransferDialog(type: string): void {
     this.dialogService.openDialog({type}, TransferActionComponent).subscribe();
+  }
+
+  public openCounterpartyDialog(type: string): void {
+    this.dialogService.openDialog({type}, CounterpartyActionComponent).subscribe();
   }
 }

@@ -1,0 +1,205 @@
+<div class="container" *ngIf="counterparty">
+  <h1 mat-dialog-title><span class="capitalize">{{counterparty?.type}}</span> counterparty</h1>
+  <div mat-dialog-content>
+    <form class="form" [formGroup]="counterpartyForm">
+
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Type</mat-label>
+            <mat-select [formControl]="counterpartyForm.controls['type']">
+              <mat-option *ngFor="let type of counterpartyTypes" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>VAAN</mat-label>
+            <input matInput autocomplete="off" placeholder="VAAN" [formControl]="counterpartyForm.controls['vaan']">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput autocomplete="off" placeholder="Name" [formControl]="counterpartyForm.controls['name']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>BIC</mat-label>
+            <input matInput autocomplete="off" placeholder="BIC" [formControl]="counterpartyForm.controls['bic']">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <h3>Birth</h3>
+
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Birth Town</mat-label>
+            <input matInput autocomplete="off" placeholder="Birth Town"
+                   [formControl]="counterpartyForm.controls['birth'].controls['birthTown']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Birth Country</mat-label>
+            <input matInput autocomplete="off" placeholder="Birth Country"
+                   [formControl]="counterpartyForm.controls['birth'].controls['birthCountry']">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <mat-form-field color="accent">
+            <mat-label>Birth Date</mat-label>
+            <input matInput [matDatepicker]="picker1"
+                   [formControl]="counterpartyForm.controls['birth'].controls['birthDate']">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <h3>Postal address</h3>
+
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Street</mat-label>
+            <input matInput autocomplete="off" placeholder="Street"
+                   [formControl]="counterpartyForm.controls['postalAddress'].controls['street']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Number</mat-label>
+            <input matInput autocomplete="off" placeholder="Number"
+                   [formControl]="counterpartyForm.controls['postalAddress'].controls['number']">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Address line</mat-label>
+            <input matInput autocomplete="off" placeholder="Address line"
+                   [formControl]="counterpartyForm.controls['postalAddress'].controls['adrline']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Postal code</mat-label>
+            <input matInput autocomplete="off" placeholder="Postal code"
+                   [formControl]="counterpartyForm.controls['postalAddress'].controls['postCode']">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Town</mat-label>
+            <input matInput autocomplete="off" placeholder="Town"
+                   [formControl]="counterpartyForm.controls['postalAddress'].controls['town']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput autocomplete="off" placeholder="Country"
+                   [formControl]="counterpartyForm.controls['postalAddress'].controls['country']">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <h3>Nat IDS</h3>
+
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>ID String</mat-label>
+            <input matInput autocomplete="off" placeholder="ID String"
+                   [formControl]="counterpartyForm.controls['natIds'].controls['idStr']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput autocomplete="off" placeholder="Country"
+                   [formControl]="counterpartyForm.controls['natIds'].controls['country']">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Issuer</mat-label>
+            <input matInput autocomplete="off" placeholder="Issuer"
+                   [formControl]="counterpartyForm.controls['natIds'].controls['issuer']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>ID Type</mat-label>
+            <mat-select [formControl]="counterpartyForm.controls['natIds'].controls['idType']">
+              <mat-option *ngFor="let type of natIdTypes" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <h3>Jur IDS</h3>
+
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>ID String</mat-label>
+            <input matInput autocomplete="off" placeholder="ID String"
+                   [formControl]="counterpartyForm.controls['jurIds'].controls['idStr']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput autocomplete="off" placeholder="Country"
+                   [formControl]="counterpartyForm.controls['jurIds'].controls['country']">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <mat-label>Issuer</mat-label>
+            <input matInput autocomplete="off" placeholder="Issuer"
+                   [formControl]="counterpartyForm.controls['jurIds'].controls['issuer']">
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field>
+            <mat-label>ID Type</mat-label>
+            <mat-select [formControl]="counterpartyForm.controls['jurIds'].controls['idType']">
+              <mat-option *ngFor="let type of jurIdTypes" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="counterpartyAction()" [disabled]="false"><span
+      class="capitalize">{{counterparty?.type}}</span></button>
+    <button mat-raised-button color="warn" mat-dialog-close>Cancel</button>
+  </div>
+</div>

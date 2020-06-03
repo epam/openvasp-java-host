@@ -19,4 +19,22 @@ export class CounterpartyService {
       tap(data => data)
     );
   }
+
+  public editCounterparty(id: number, counterparty: Counterparty): Observable<Counterparty> {
+    return this.dataProvider.editCounterparty(id, counterparty).pipe(
+      tap(data => data)
+    );
+  }
+
+  public deleteCounterparty(id: number): Observable<Counterparty> {
+    return this.dataProvider.deleteCounterparty(id).pipe(
+      tap(data => data)
+    );
+  }
+
+  public createCounterparty(counterparty: Counterparty): Observable<Counterparty> {
+    return this.dataProvider.createCounterparty(counterparty).pipe(
+      tap(data => data)
+    );
+  }
 }

@@ -17,6 +17,14 @@
     <div class="column">
       <p *ngFor="let jurId of counterpartyData.jurIds">ID: {{jurId.idStr}} Country: {{jurId.country}} Issuer: {{jurId.issuer}} Type: {{jurId.idType}}</p>
     </div>
+    <div class="column action">
+      <button mat-raised-button color="primary" (click)="openCounterpartyDialog('edit')" matTooltip="Edit counterparty" matTooltipPosition="above">
+        <mat-icon>create</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" (click)="openDeleteDialog()" matTooltip="Delete counterparty" matTooltipPosition="above">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
 
 </div>

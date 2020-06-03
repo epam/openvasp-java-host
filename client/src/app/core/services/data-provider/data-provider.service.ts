@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CreateTransferData, Transfer, TransferResponse } from '../../models/transfer.model';
 import { Counterparty } from '../../models/counterparty.model';
+import { VASP } from '../../models/vasp.model';
 
 const API_URL = environment.apiUrl;
 
@@ -14,8 +15,8 @@ const API_URL = environment.apiUrl;
 export class DataProviderService {
   constructor(private http: HttpClient) {}
 
-  public getTransfers(pageNumber: number, pageSize: number): Observable<TransferResponse> {
-    return this.http.get(API_URL + 'transfers' + `?pageNr=${pageNumber}&pageSize=${pageSize}`).pipe(
+  public getTransfers(): Observable<TransferResponse> {
+    return this.http.get(API_URL + 'transfers').pipe(
       map(this.extractData),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('transfers'))
@@ -63,10 +64,10 @@ export class DataProviderService {
   }
 
   public getCounterparties(): Observable<Counterparty[]> {
-    return this.http.get(API_URL + 'counterparties/all').pipe(
+    return this.http.get(API_URL + 'counterparties').pipe(
       map(this.extractData),
       // tslint:disable-next-line:no-any
-      catchError(this.handleError<any>('counterparties/all'))
+      catchError(this.handleError<any>('counterparties'))
     );
   }
 
@@ -76,6 +77,46 @@ export class DataProviderService {
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('get counterparty'))
     );
+  }
+
+  public editCounterparty(id: number, counterparty: Counterparty): Observable<Counterparty> {
+    return this.http.put(API_URL + `counterparties/${id}`, counterparty).pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('update counterparty'))
+    )
+  }
+
+  public deleteCounterparty(id: number): Observable<Counterparty> {
+    return this.http.delete(API_URL + `counterparties/${id}`).pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('delete counterparty'))
+    )
+  }
+
+  public createCounterparty(counterparty: Counterparty): Observable<Counterparty> {
+    return this.http.post(API_URL + 'counterparties', counterparty).pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('update counterparty'))
+    )
+  }
+
+  public getVASPs(): Observable<VASP[]> {
+    return this.http.get(API_URL + 'vasp').pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('get vasps'))
+    )
+  }
+
+  public getVAAN(vaspCode: string, customerNumber: string): Observable<string> {
+    return this.http.get(API_URL + `vaan/${vaspCode}/${customerNumber}`).pipe(
+      map(this.extractData),
+      // tslint:disable-next-line:no-any
+      catchError(this.handleError<any>('get vaan'))
+    )
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

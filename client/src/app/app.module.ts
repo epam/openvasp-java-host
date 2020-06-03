@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DialogService } from './components/dialog/dialog.service';
 import { CounterpartyModule } from './components/counterparty/counterparty.module';
 import { DialogModule } from './components/dialog/dialog.module';
+import { VASPModule } from './components/vasp/vasp.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DialogModule } from './components/dialog/dialog.module';
     MatButtonModule,
     HttpClientModule,
     TransferModule,
+    VASPModule,
     MatProgressSpinnerModule,
   ],
   providers: [
