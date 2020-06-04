@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Counterparty, CounterpartyDialogData } from '../../../core/models/counterparty.model';
 import { CounterpartyActionFormService } from './counterparty-action.form';
@@ -28,6 +28,7 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
     private counterpartyActionFormService: CounterpartyActionFormService,
     private vaspService: VASPService,
     private dialogService: DialogService,
+    private cdr: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public counterparty: CounterpartyDialogData
   ) {}
 
@@ -36,7 +37,8 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.counterparty);
+    console.log(this.counterpartyForm);
+    this.initForm(this.counterparty.type);
     this.getCurrentVASP();
   }
 
@@ -59,15 +61,21 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
   }
 
   private createCounterparty(): void {
-    this.vaspService.getVAAN(this.currentVASP.vaspCode, this.counterpartyForm.value.customerNr).pipe(
-      tap(data => this.setVAAN(data)),
-      tap(() => this.counterpartyActionFormService.processBeforeSend()),
-      // tap(() => console.log(this.counterpartyForm.value))
-      switchMap(() => this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
-          // tap(() => this.snackBar.open('Counterparty was created', 'Close')),
+    if (this.counterparty.type === 'create') {
+      this.vaspService.getVAAN(this.currentVASP.vaspCode, this.counterpartyForm.value.customerNr).pipe(
+        tap(data => this.setVAAN(data)),
+        tap(() => this.counterpartyActionFormService.processBeforeSend()),
+        // tap(() => console.log(this.counterpartyForm.value))
+        switchMap(() => this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
+            tap(() => this.dialogService.closeDialog(true)),
+        ))
+      ).subscribe()
+    } else {
+      this.counterpartyActionFormService.processBeforeSend();
+      this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
           tap(() => this.dialogService.closeDialog(true)),
-      ))
-    ).subscribe()
+      ).subscribe();
+    }
   }
 
   private editCounterparty(): void {
@@ -78,12 +86,16 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
 
   private getCurrentVASP(): void {
     this.vaspService.getCurrentVASP().pipe(
-      tap(data => this.currentVASP = data),
-      tap(() => console.log(this.currentVASP))
+      tap(data => this.currentVASP = data)
     ).subscribe();
   }
 
   private setVAAN(vaan: string): void {
     this.counterpartyActionFormService.setVAAN(vaan);
+  }
+
+  private initForm(type: string): void {
+    this.counterpartyActionFormService.initForm(type, this.counterparty.counterparty);
+    this.cdr.markForCheck();
   }
 }

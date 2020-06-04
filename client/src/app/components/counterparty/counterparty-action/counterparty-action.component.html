@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" *ngIf="counterparty.type === 'create'">
         <div class="column full-width">
           <mat-form-field>
             <mat-label>Customer Number</mat-label>
@@ -129,13 +129,13 @@
           <mat-form-field>
             <mat-label>ID String</mat-label>
             <input matInput autocomplete="off" placeholder="ID String"
-                   [formControl]="counterpartyForm.controls['natIds'].controls['idStr']">
+                   [formControl]="counterpartyForm.controls['natIds'].controls[0].controls['idStr']">
           </mat-form-field>
         </div>
         <div class="column half-width">
           <mat-form-field>
             <mat-label>Country</mat-label>
-            <mat-select [formControl]="counterpartyForm.controls['natIds'].controls['country']">
+            <mat-select [formControl]="counterpartyForm.controls['natIds'].controls[0].controls['country']">
               <mat-option *ngFor="let country of countries" [value]="country.value">
                 {{country.text}}
               </mat-option>
@@ -148,15 +148,15 @@
           <mat-form-field>
             <mat-label>Issuer</mat-label>
             <input matInput autocomplete="off" placeholder="Issuer"
-                   [formControl]="counterpartyForm.controls['natIds'].controls['issuer']">
+                   [formControl]="counterpartyForm.controls['natIds'].controls[0].controls['issuer']">
           </mat-form-field>
         </div>
         <div class="column half-width">
           <mat-form-field>
             <mat-label>ID Type</mat-label>
-            <mat-select [formControl]="counterpartyForm.controls['natIds'].controls['idType']">
-              <mat-option *ngFor="let type of natIdTypes" [value]="type">
-                {{type}}
+            <mat-select [formControl]="counterpartyForm.controls['natIds'].controls[0].controls['idType']">
+              <mat-option *ngFor="let type of natIdTypes" [value]="type.value">
+                {{type.text}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -170,13 +170,13 @@
           <mat-form-field>
             <mat-label>ID String</mat-label>
             <input matInput autocomplete="off" placeholder="ID String"
-                   [formControl]="counterpartyForm.controls['jurIds'].controls['idStr']">
+                   [formControl]="counterpartyForm.controls['jurIds'].controls[0].controls['idStr']">
           </mat-form-field>
         </div>
         <div class="column half-width">
           <mat-form-field>
             <mat-label>Country</mat-label>
-            <mat-select [formControl]="counterpartyForm.controls['jurIds'].controls['country']">
+            <mat-select [formControl]="counterpartyForm.controls['jurIds'].controls[0].controls['country']">
               <mat-option *ngFor="let country of countries" [value]="country.value">
                 {{country.text}}
               </mat-option>
@@ -189,15 +189,15 @@
           <mat-form-field>
             <mat-label>Issuer</mat-label>
             <input matInput autocomplete="off" placeholder="Issuer"
-                   [formControl]="counterpartyForm.controls['jurIds'].controls['issuer']">
+                   [formControl]="counterpartyForm.controls['jurIds'].controls[0].controls['issuer']">
           </mat-form-field>
         </div>
         <div class="column half-width">
           <mat-form-field>
             <mat-label>ID Type</mat-label>
-            <mat-select [formControl]="counterpartyForm.controls['jurIds'].controls['idType']">
-              <mat-option *ngFor="let type of jurIdTypes" [value]="type">
-                {{type}}
+            <mat-select [formControl]="counterpartyForm.controls['jurIds'].controls[0].controls['idType']">
+              <mat-option *ngFor="let type of jurIdTypes" [value]="type.value">
+                {{type.text}}
               </mat-option>
             </mat-select>
           </mat-form-field>

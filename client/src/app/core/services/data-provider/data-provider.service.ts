@@ -99,7 +99,7 @@ export class DataProviderService {
   public deleteCounterparty(id: number): Observable<Counterparty> {
     return this.http.delete(API_URL + `counterparties/${id}`).pipe(
       map(this.extractData),
-      tap(() => this.snackBar.open('Transfer was deleted', 'Close')),
+      tap(() => this.snackBar.open('Counterparty was deleted', 'Close')),
       // tslint:disable-next-line:no-any
       catchError(this.handleError<any>('delete counterparty'))
     )
