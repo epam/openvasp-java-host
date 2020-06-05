@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.openvasp.client.model.Vaan;
+import org.openvasp.host.model.CounterpartyRole;
 import org.openvasp.host.model.CounterpartyType;
 import org.openvasp.host.model.jpa.convert.JpaVaanConverter;
 
@@ -22,10 +23,17 @@ import java.util.Set;
 @ToString(of = {"id", "name"})
 public class CounterpartyEntity implements JpaEntity<Integer> {
 
+    public static final String ENTITY_CACHE = "counterparty-entities";
+    public static final String QUERY_CACHE = "counterparty-queries";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "cp_role")
+    @Enumerated(EnumType.STRING)
+    private CounterpartyRole role;
 
     @Column(name = "cp_type")
     @Enumerated(EnumType.STRING)

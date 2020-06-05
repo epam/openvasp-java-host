@@ -5,6 +5,6 @@ package org.openvasp.host.model;
  */
 public enum CounterpartyType {
 
-    ORIGINATOR, BENEFICIARY
+    NATURAL_PERSON, JURIDICAL_PERSON, BANK
 
 }

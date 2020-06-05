@@ -1,6 +1,8 @@
 package org.openvasp.host.service.impl;
 
 import lombok.NonNull;
+import lombok.val;
+import org.openvasp.host.common.exception.HttpBadRequestException;
 import org.openvasp.host.model.jpa.JpaEntity;
 import org.openvasp.host.service.BaseJpaService;
 import org.slf4j.Logger;
@@ -20,9 +22,11 @@ public abstract class BaseJpaServiceImpl<ID, T extends JpaEntity<ID>, REPO exten
 
     final Logger log = LoggerFactory.getLogger(getClass());
 
-    protected final REPO repo;
+    final Class<T> entityClass;
+    final REPO repo;
 
-    public BaseJpaServiceImpl(final REPO repo) {
+    public BaseJpaServiceImpl(final Class<T> entityClass, final REPO repo) {
+        this.entityClass = entityClass;
         this.repo = repo;
     }
 
@@ -38,6 +42,18 @@ public abstract class BaseJpaServiceImpl<ID, T extends JpaEntity<ID>, REPO exten
     public Optional<T> findById(@NonNull final ID id) {
         log.debug("findById: {}", id);
         return repo.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public T getById(@NonNull final ID id) {
+        log.debug("getById: {}", id);
+        return repo
+                .findById(id)
+                .orElseThrow(() -> {
+                    val errorMessage = String.format("Invalid %s.id = " + id.toString(), entityClass.getSimpleName());
+                    return new HttpBadRequestException(errorMessage);
+                });
     }
 
     @Transactional

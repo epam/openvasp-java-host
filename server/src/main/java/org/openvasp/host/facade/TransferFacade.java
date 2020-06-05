@@ -1,9 +1,6 @@
 package org.openvasp.host.facade;
 
-import org.openvasp.host.model.dto.TransferDto;
-import org.openvasp.host.model.dto.TransferFindRequest;
-import org.openvasp.host.model.dto.TransferShortDto;
-import org.openvasp.host.model.dto.TransferUpdate;
+import org.openvasp.host.model.dto.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -25,5 +22,7 @@ public interface TransferFacade {
     TransferDto update(Integer id, TransferUpdate update);
 
     void delete(Integer id);
+
+    TransferDto doCommand(Integer transferId, TransferCommand command);
 
 }

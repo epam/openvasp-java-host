@@ -21,7 +21,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * @author Olexandr_Bilovol@epam.com
@@ -33,7 +36,14 @@ public class TransferServiceImpl
 
     @Autowired
     public TransferServiceImpl(final TransferRepo repo) {
-        super(repo);
+        super(TransferEntity.class, repo);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<TransferEntity> findBySessionId(@NonNull final String sessionId) {
+        log.debug("findBySessionId: {}", sessionId);
+        return repo.findBySessionId(sessionId);
     }
 
     @Transactional(readOnly = true)
@@ -69,30 +79,39 @@ public class TransferServiceImpl
                 result = and(cb, result, cb.equal(root.get(TransferEntity_.sessionId), request.getSessionId()));
             }
 
-            val originatorPath = root.join(TransferEntity_.originator);
-
             if (!StringUtils.isEmpty(request.getOriginatorName())) {
+                val originatorPath = root.join(TransferEntity_.originator);
                 result = and(cb, result, cb.like(cb.upper(originatorPath.get(CounterpartyEntity_.name)),
                         "%" + request.getOriginatorName().toUpperCase() + "%"));
             }
 
             if (!StringUtils.isEmpty(request.getOriginatorVaan())) {
+                val originatorPath = root.join(TransferEntity_.originator);
                 result = and(cb, result, cb.equal(originatorPath.get("vaan"), request.originatorVaan()));
             }
 
-            val beneficiaryPath = root.join(TransferEntity_.beneficiary);
-
             if (!StringUtils.isEmpty(request.getBeneficiaryName())) {
+                val beneficiaryPath = root.join(TransferEntity_.beneficiary);
                 result = and(cb, result, cb.like(cb.upper(beneficiaryPath.get(CounterpartyEntity_.name)),
                         "%" + request.getBeneficiaryName().toUpperCase() + "%"));
             }
 
             if (!StringUtils.isEmpty(request.getBeneficiaryVaan())) {
+                val beneficiaryPath = root.join(TransferEntity_.beneficiary);
                 result = and(cb, result, cb.equal(beneficiaryPath.get("vaan"), request.beneficiaryVaan()));
             }
 
             return result;
         };
+    }
+
+    @Override
+    public TransferEntity save(@NotNull final TransferEntity entity) {
+        if (entity.getId() == null) {
+            entity.setCreated(LocalDateTime.now());
+        }
+        entity.setUpdated(LocalDateTime.now());
+        return super.save(entity);
     }
 
 }

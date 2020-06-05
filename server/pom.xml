@@ -29,6 +29,7 @@
     <properties>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
         <springdoc.version>1.2.26</springdoc.version>
+        <okhttp3.version>4.3.1</okhttp3.version>
     </properties>
 
     <dependencies>
@@ -212,19 +213,27 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.8.4</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                    <driver>org.h2.Driver</driver>
+                    <username>SA</username>
+                    <password></password>
+                    <rollbackCount>1</rollbackCount>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <clearCheckSums>true</clearCheckSums>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>h2</id>
+                        <id>db1</id>
                         <configuration>
-                            <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
-                            <driver>com.mysql.cj.jdbc.Driver</driver>
-                            <driver>org.h2.Driver</driver>
-                            <url>jdbc:h2:file:${project.basedir}/h2/openvasp</url>
-                            <username>SA</username>
-                            <password></password>
-                            <rollbackCount>1</rollbackCount>
-                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                            <clearCheckSums>true</clearCheckSums>
+                            <url>jdbc:h2:file:${project.basedir}/db1/openvasp</url>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>db2</id>
+                        <configuration>
+                            <url>jdbc:h2:file:${project.basedir}/db2/openvasp</url>
                         </configuration>
                     </execution>
                 </executions>
