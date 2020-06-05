@@ -11,6 +11,7 @@ import org.openvasp.host.model.TransferType;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * @author Olexandr_Bilovol@epam.com
@@ -22,6 +23,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
 public class TransferEntity implements JpaEntity<Integer> {
+
+    public static final String ENTITY_CACHE = "transfer-entities";
+    public static final String QUERY_CACHE = "transfer-queries";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +59,9 @@ public class TransferEntity implements JpaEntity<Integer> {
     @Column(name = "tx_hash")
     private String txHash;
 
+    @Column(name = "tx_time")
+    private ZonedDateTime txDateTime;
+
     @Column(name = "send_addr")
     private String sendAddr;
 
@@ -66,6 +73,9 @@ public class TransferEntity implements JpaEntity<Integer> {
 
     @Column(name = "reply_code_2")
     private Integer transferReplyCode;
+
+    @Column(name = "reply_code_3")
+    private Integer dispatchReplyCode;
 
     @ManyToOne
     @JoinColumn(name = "originator_id")

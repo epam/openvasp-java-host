@@ -18,11 +18,11 @@ public class TransferControllerTests extends BaseControllerTests {
 
     @Test
     public void testFindById() throws Exception {
-        val book1001 = httpGet(TransferDto.class, "/transfers/{id}", 1001);
-        assertThat(transferJsonTester.write(book1001)).isEqualToJson("transfer_1001.json");
+        val transfer1001 = httpGet(TransferDto.class, "/transfers/{id}", 1001);
+        assertThat(transferJsonTester.write(transfer1001)).isEqualToJson("transfer_1001.json");
 
-        val book1002 = httpGet(TransferDto.class, "/transfers/{id}", 1002);
-        assertThat(transferJsonTester.write(book1002)).isEqualToJson("transfer_1002.json");
+        val transfer1002 = httpGet(TransferDto.class, "/transfers/{id}", 1002);
+        assertThat(transferJsonTester.write(transfer1002)).isEqualToJson("transfer_1002.json");
     }
 
 }

@@ -13,7 +13,8 @@
             <column name="id" type="int" autoIncrement="true" startWith="10000" incrementBy="1">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="cp_type" type="varchar(12)"/>
+            <column name="cp_role" type="varchar(12)"/>
+            <column name="cp_type" type="varchar(20)"/>
             <column name="vaan" type="varchar(32)">
                 <constraints nullable="false" unique="true"/>
             </column>
@@ -58,6 +59,9 @@
             <column name="id" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="vasp_code" type="varchar(8)">
+                <constraints unique="true" nullable="false"/>
+            </column>
             <column name="name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
@@ -79,10 +83,12 @@
             <column name="send_addr" type="varchar(50)"/>
             <column name="dest_addr" type="varchar(50)"/>
             <column name="tx_hash" type="varchar(100)"/>
+            <column name="tx_time" type="datetime"/>
             <column name="created" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="updated" type="datetime" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="reply_code_1" type="int"/>
             <column name="reply_code_2" type="int"/>
+            <column name="reply_code_3" type="int"/>
             <column name="originator_id" type="int">
                 <constraints foreignKeyName="fk_transfer_originator"
                              referencedTableName="counterparty"
@@ -98,6 +104,13 @@
                              referencedTableName="vasp_info"
                              referencedColumnNames="id"/>
             </column>
+        </createTable>
+        <!-- Table 'session_state' -->
+        <createTable tableName="session_state">
+            <column name="id" type="varchar(34)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="json_str" type="varchar(16384)"/>
         </createTable>
     </changeSet>
 
@@ -142,9 +155,10 @@
         <loadData tableName="vasp_info"
                   file="db/master-data/vasp_info.csv">
             <column name="id" type="string"/>
+            <column name="vasp_code" type="string"/>
             <column name="name" type="string"/>
         </loadData>
-        <!-- Table 'transfer' -->
+        <!-- Table 'transfer'
         <loadData tableName="transfer"
                   file="db/master-data/transfer.csv">
             <column name="id" type="numeric"/>
@@ -159,11 +173,8 @@
             <column name="send_addr" type="string"/>
             <column name="dest_addr" type="string"/>
             <column name="vasp_id" type="string"/>
-            <column name="created" type="date"/>
-            <column name="updated" type="date"/>
-            <column name="reply_code_1" type="numeric"/>
-            <column name="reply_code_2" type="numeric"/>
         </loadData>
+        -->
         <rollback>
             <sql><![CDATA[
                 DELETE FROM nat_id;
