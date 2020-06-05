@@ -2,12 +2,17 @@ package org.openvasp.host.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.openvasp.client.model.TransferDispatch;
+import org.openvasp.client.model.TransferInfo;
+import org.openvasp.client.model.TransferRequest;
 import org.openvasp.host.model.dto.TransferDto;
 import org.openvasp.host.model.dto.TransferShortDto;
 import org.openvasp.host.model.dto.TransferUpdate;
 import org.openvasp.host.model.jpa.TransferEntity;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * @author Olexandr_Bilovol@epam.com
@@ -15,7 +20,11 @@ import java.time.LocalDateTime;
 @Mapper(
         componentModel = "spring",
         imports = {
-                LocalDateTime.class
+                LocalDateTime.class,
+                ZonedDateTime.class
+        },
+        uses = {
+                CounterpartyMapper.class
         }
 )
 public interface TransferMapper {
@@ -26,8 +35,32 @@ public interface TransferMapper {
 
     @Mapping(target = "trType", constant = "OUTGOING")
     @Mapping(target = "trStatus", constant = "CREATED")
-    @Mapping(target = "created", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "updated", expression = "java(LocalDateTime.now())")
     TransferEntity toEntity(TransferUpdate update);
+
+    @Mapping(target = "assetType", source = "transfer.assetType")
+    @Mapping(target = "amount", source = "transfer.amount")
+    @Mapping(target = "destAddr", source = "transfer.destinationAddress")
+    @Mapping(target = "originator", ignore = true)
+    @Mapping(target = "beneficiary", ignore = true)
+    void toEntity(TransferRequest request, @MappingTarget TransferEntity entity);
+
+    @Mapping(target = "assetType", source = "transfer.assetType")
+    @Mapping(target = "amount", source = "transfer.amount")
+    @Mapping(target = "destAddr", source = "transfer.destinationAddress")
+    @Mapping(target = "txHash", source = "tx.id")
+    @Mapping(target = "txDateTime", source = "tx.dateTime")
+    @Mapping(target = "sendAddr", source = "tx.sendingAddress")
+    @Mapping(target = "originator", ignore = true)
+    @Mapping(target = "beneficiary", ignore = true)
+    void toEntity(TransferDispatch request, @MappingTarget TransferEntity entity);
+
+    @Mapping(target = "transfer.assetType", source = "assetType")
+    @Mapping(target = "transfer.amount", source = "amount")
+    @Mapping(target = "transfer.destinationAddress", source = "destAddr")
+    @Mapping(target = "transfer.transferType", expression = "java(org.openvasp.client.model.TransferMessage.TransferType.BLOCKCHAIN_TRANSFER)")
+    @Mapping(target = "tx.id", source = "txHash")
+    @Mapping(target = "tx.sendingAddress", source = "sendAddr")
+    @Mapping(target = "tx.dateTime", expression = "java(ZonedDateTime.now())")
+    TransferInfo toTransferInfo(TransferEntity entity);
 
 }

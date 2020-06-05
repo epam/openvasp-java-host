@@ -1,4 +1,4 @@
-id,name
-0x6befaf0656b953b188a0ee3bf3db03d07dface61,TestVaspContractPerson
-0x08fda931d64b17c3acffb35c1b3902e0bbb4ee5c,TestOpenVaspJur
-0x4dd7e1e2d5640a06ed81f155f171012f1cd48daa,OpeVaspTestBic
+id,vasp_code,name
+0x6befaf0656b953b188a0ee3bf3db03d07dface61,7dface61,VASP-1
+0x08fda931d64b17c3acffb35c1b3902e0bbb4ee5c,bbb4ee5c,VASP-2
+0x4dd7e1e2d5640a06ed81f155f171012f1cd48daa,1cd48daa,VASP-3

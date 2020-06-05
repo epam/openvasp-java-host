@@ -1,10 +1,14 @@
 package org.openvasp.host.service.impl;
 
+import lombok.NonNull;
+import org.openvasp.client.model.Vaan;
 import org.openvasp.host.model.jpa.CounterpartyEntity;
 import org.openvasp.host.repo.CounterpartyRepo;
 import org.openvasp.host.service.CounterpartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author Olexandr_Bilovol@epam.com
@@ -15,8 +19,13 @@ public class CounterparyServiceImpl
         implements CounterpartyService {
 
     @Autowired
-    public CounterparyServiceImpl(final CounterpartyRepo counterpartyRepo) {
-        super(counterpartyRepo);
+    public CounterparyServiceImpl(final CounterpartyRepo repo) {
+        super(CounterpartyEntity.class, repo);
+    }
+
+    @Override
+    public Optional<CounterpartyEntity> findByVaan(@NonNull final Vaan vaan) {
+        return repo.findByVaan(vaan);
     }
 
 }

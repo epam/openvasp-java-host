@@ -30,12 +30,14 @@ build/
 ### VS Code ###
 .vscode/
 
-h2
 scripts
 ~$*.xlsx
 *.log
 config/*.yaml
 config/*.json
 !config/*-template.yaml
-
-
+!config/host-config-1.yaml
+!config/host-config-2.yaml
+!config/*-template.properties
+db1
+db2

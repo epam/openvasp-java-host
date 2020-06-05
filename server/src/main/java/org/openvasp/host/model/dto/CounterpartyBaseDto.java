@@ -3,6 +3,7 @@ package org.openvasp.host.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.openvasp.client.model.Vaan;
+import org.openvasp.host.model.CounterpartyRole;
 import org.openvasp.host.model.CounterpartyType;
 
 /**
@@ -13,6 +14,7 @@ import org.openvasp.host.model.CounterpartyType;
 public abstract class CounterpartyBaseDto {
 
     private Integer id;
+    private CounterpartyRole role;
     private CounterpartyType type;
     private Vaan vaan;
     private String name;
