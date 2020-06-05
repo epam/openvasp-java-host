@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public openCounterpartyDialog(type: string): void {
-    this.dialogService.openDialog({type}, CounterpartyActionComponent, '', '900px', '850px').subscribe();
+    this.dialogService.openDialog({type}, CounterpartyActionComponent, '', '900px', '900px').subscribe();
   }
 
   private setCurrentVASPInfo(): void {

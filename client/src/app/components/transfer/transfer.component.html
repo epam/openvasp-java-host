@@ -29,7 +29,6 @@
       </tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
-    <mat-paginator (page)="getPaginatorData($event)" [pageSizeOptions]="[5, 10, 15]" [length]="resultsLength" [pageSize]="5"></mat-paginator>
-<!--    <mat-paginator (page)="getPaginatorData($event)" [pageSize]="paginator?.pageSize" [pageIndex]="paginator?.pageIndex" [length]="paginator?.length" [pageSizeOptions]="paginator?.pageSizeOptions"></mat-paginator>-->
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" [length]="resultsLength" [pageSize]="5"></mat-paginator>
   </div>
 </div>

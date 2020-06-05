@@ -13,8 +13,8 @@ import { tap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TransferComponent implements AfterViewInit {
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   dataSource;
   columnsToDisplay = ['trType', 'id', 'created', 'trStatus', 'sessionId'];
@@ -29,12 +29,7 @@ export class TransferComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    // this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.getTransfers();
-  }
-
-  public getPaginatorData(event: PageEvent): void {
-
   }
 
   public onCompletedAction(event): void {
@@ -50,7 +45,11 @@ export class TransferComponent implements AfterViewInit {
 
   private setTransfersData(data): void {
     this.dataSource = new MatTableDataSource<Transfer>(data);
+
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+
+    this.resultsLength = data.length;
     this.isLoadingResults = false;
     this.cdr.markForCheck();
   }

@@ -4,7 +4,17 @@
     <form class="form" [formGroup]="counterpartyForm">
 
       <div class="row">
-        <div class="column">
+        <div class="column half-width">
+          <mat-form-field>
+            <mat-label>Role</mat-label>
+            <mat-select [formControl]="counterpartyForm.controls['role']">
+              <mat-option *ngFor="let role of counterpartyRoles" [value]="role">
+                {{role}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>Type</mat-label>
             <mat-select [formControl]="counterpartyForm.controls['type']">
@@ -14,13 +24,16 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="column">
+      </div>
+
+      <div class="row">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>BIC</mat-label>
             <input matInput autocomplete="off" placeholder="BIC" [formControl]="counterpartyForm.controls['bic']">
           </mat-form-field>
         </div>
-        <div class="column">
+        <div class="column half-width">
           <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput autocomplete="off" placeholder="Name" [formControl]="counterpartyForm.controls['name']">

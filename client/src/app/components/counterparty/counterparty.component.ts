@@ -13,8 +13,8 @@ import { Counterparty } from '../../core/models/counterparty.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterpartyComponent implements AfterViewInit {
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   dataSource;
   columnsToDisplay = ['id', 'name', 'type', 'role', 'vaan'];
@@ -32,10 +32,6 @@ export class CounterpartyComponent implements AfterViewInit {
     this.getCounterparties();
   }
 
-  getPaginatorData(event: PageEvent): void {
-    this.getCounterparties();
-  }
-
   onCompletedAction(): void {
     this.getCounterparties();
   }
@@ -48,7 +44,10 @@ export class CounterpartyComponent implements AfterViewInit {
 
   private setCounterpartiesData(data: Counterparty[]): void {
     this.dataSource = new MatTableDataSource<Counterparty>(data);
+
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
     this.resultsLength = data.length;
     this.isLoadingResults = false;
     this.cdr.markForCheck();

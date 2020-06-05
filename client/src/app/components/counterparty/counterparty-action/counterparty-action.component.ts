@@ -5,7 +5,12 @@ import { CounterpartyActionFormService } from './counterparty-action.form';
 import { switchMap, tap } from 'rxjs/operators';
 import { CounterpartyService } from '../counterparty.service';
 import { DialogService } from '../../dialog/dialog.service';
-import { COUNTERPARTY_TYPES, JUR_ID_TYPES, NAT_ID_TYPES } from '../../../core/models/nat-jur-counterparty-types.data';
+import {
+  COUNTERPARTY_ROLES,
+  COUNTERPARTY_TYPES,
+  JUR_ID_TYPES,
+  NAT_ID_TYPES
+} from '../../../core/models/nat-jur-counterparty-types.data';
 import { COUNTRIES } from '../../../core/models/countries.data';
 import { VASPService } from '../../vasp/vasp.service';
 import { VASP } from '../../../core/models/vasp.model';
@@ -17,6 +22,7 @@ import { VASP } from '../../../core/models/vasp.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterpartyActionComponent implements OnInit, OnDestroy {
+  public counterpartyRoles = COUNTERPARTY_ROLES;
   public counterpartyTypes = COUNTERPARTY_TYPES;
   public natIdTypes = NAT_ID_TYPES;
   public jurIdTypes = JUR_ID_TYPES;

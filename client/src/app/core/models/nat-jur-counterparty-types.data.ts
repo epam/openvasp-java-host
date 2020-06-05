@@ -15,4 +15,5 @@ export const JUR_ID_TYPES = [
   {value: 5, text: 'BANK_PARTY_IDENTIFICATION'},
   {value: 6, text: 'OTHER'}
 ];
-export const COUNTERPARTY_TYPES = ['ORIGINATOR', 'BENEFICIARY'];
+export const COUNTERPARTY_ROLES = ['ORIGINATOR', 'BENEFICIARY'];
+export const COUNTERPARTY_TYPES = ['NATURAL_PERSON', 'JURIDICAL_PERSON', 'BANK'];

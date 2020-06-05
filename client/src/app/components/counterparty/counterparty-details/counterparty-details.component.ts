@@ -38,7 +38,9 @@ export class CounterpartyDetailsComponent implements OnInit {
   }
 
   openCounterpartyDialog(type: string): void {
-    this.dialogService.openDialog({counterparty:this.counterpartyData, type: type}, CounterpartyActionComponent, '', '900px', '850px').subscribe();
+    this.dialogService.openDialog({counterparty:this.counterpartyData, type: type}, CounterpartyActionComponent, '', '900px', '850px').pipe(
+      tap(() => this.completedAction.emit(true)),
+    ).subscribe();
   }
 
   public openDeleteDialog(): void {
