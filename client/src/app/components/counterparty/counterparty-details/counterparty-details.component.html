@@ -3,19 +3,22 @@
        *ngIf="isLoadingResults">
     <mat-spinner></mat-spinner>
   </div>
-  <div *ngIf="!isLoadingResults" class="container">
+  <div *ngIf="!isLoadingResults" class="container-columns">
     <div class="column">
-      <p>Counterparty ID: {{counterpartyData?.id}}</p>
-      <p>Name: {{counterpartyData?.name}}</p>
-      <p>Counterparty type: {{counterpartyData?.type}}</p>
-      <p>Counterparty VAAN: {{counterpartyData?.vaan}}</p>
-      <p>Postal Address: {{counterpartyData.postalAddress?.adrline}}</p>
+      <p *ngIf="counterpartyData?.bic">BIC: {{counterpartyData?.bic}}</p>
+      <p *ngIf="counterpartyData.postalAddress?.adrline">Postal Address: {{counterpartyData.postalAddress?.adrline}}</p>
     </div>
     <div class="column">
-      <p *ngFor="let natId of counterpartyData.natIds">ID: {{natId.idStr}} Country: {{natId.country}} Issuer: {{natId.issuer}} Type: {{natId.idType}}</p>
+      <ng-container *ngIf="counterpartyData.natIds[0]">
+        <h3>Nat ID</h3>
+        <p *ngFor="let natId of counterpartyData.natIds">ID: {{natId.idStr}} Country: {{natId.country}} Issuer: {{natId.issuer}} Type: {{natId.idType}}</p>
+      </ng-container>
     </div>
     <div class="column">
-      <p *ngFor="let jurId of counterpartyData.jurIds">ID: {{jurId.idStr}} Country: {{jurId.country}} Issuer: {{jurId.issuer}} Type: {{jurId.idType}}</p>
+      <ng-container *ngIf="counterpartyData.jurIds[0]">
+        <h3>Jur ID</h3>
+        <p *ngFor="let jurId of counterpartyData.jurIds">ID: {{jurId.idStr}} Country: {{jurId.country}} Issuer: {{jurId.issuer}} Type: {{jurId.idType}}</p>
+      </ng-container>
     </div>
     <div class="column action">
       <button mat-raised-button color="primary" (click)="openCounterpartyDialog('edit')" matTooltip="Edit counterparty" matTooltipPosition="above">

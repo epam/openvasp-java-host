@@ -33,6 +33,6 @@
 <!--    </div>-->
   </div>
   <div class="column">
-    <app-transfer-command [transfer]="transfer" (command)="onCommandClick($event)"></app-transfer-command>
+    <app-transfer-command *ngIf="isCommandAllowed()" [transfer]="transfer" (command)="onCommandClick($event)"></app-transfer-command>
   </div>
 </div>

@@ -66,6 +66,10 @@ export class TransferDetailsComponent implements OnInit {
     ).subscribe();
   }
 
+  public isCommandAllowed(): boolean {
+    return this.transfer.trStatus !== 'DISPATCH_CONFIRMED';
+  }
+
   private setTransferData(data: Transfer): void {
     this.isLoadingResults = false;
     this.transferDialogData.transfer = data;

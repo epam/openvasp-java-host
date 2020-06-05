@@ -23,6 +23,12 @@
         outline: none;
       }
     }
+
+    .current-vasp {
+      margin: 0 0 0 15px;
+      font-size: 14px;
+      filter: brightness(0.8);
+    }
   }
 
   .btn-create {

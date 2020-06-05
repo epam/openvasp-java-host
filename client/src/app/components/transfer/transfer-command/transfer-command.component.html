@@ -1,31 +1,31 @@
 <mat-form-field>
   <mat-label>Transfer commands</mat-label>
   <mat-select>
-    <mat-option [value]="'REQUEST_SESSION'" (click)="command.emit('REQUEST_SESSION')">
+    <mat-option *ngIf="isRequestSessionAllowed()" [value]="'REQUEST_SESSION'" (click)="command.emit('REQUEST_SESSION')">
       REQUEST_SESSION
     </mat-option>
-    <mat-option [value]="'ACCEPT_SESSION'" (click)="command.emit('ACCEPT_SESSION')">
+    <mat-option *ngIf="isAcceptSessionAllowed()" [value]="'ACCEPT_SESSION'" (click)="command.emit('ACCEPT_SESSION')">
       ACCEPT_SESSION
     </mat-option>
-    <mat-option [value]="'DECLINE_SESSION'" (click)="command.emit('DECLINE_SESSION')">
+    <mat-option *ngIf="isDeclineSessionAllowed()" [value]="'DECLINE_SESSION'" (click)="command.emit('DECLINE_SESSION')">
       DECLINE_SESSION
     </mat-option>
-    <mat-option [value]="'REQUEST_TRANSFER'" (click)="command.emit('REQUEST_TRANSFER')">
+    <mat-option *ngIf="isRequestTransferAllowed()" [value]="'REQUEST_TRANSFER'" (click)="command.emit('REQUEST_TRANSFER')">
       REQUEST_TRANSFER
     </mat-option>
-    <mat-option [value]="'ACCEPT_TRANSFER'" (click)="command.emit('ACCEPT_TRANSFER')">
+    <mat-option *ngIf="isAcceptTransferAllowed()" [value]="'ACCEPT_TRANSFER'" (click)="command.emit('ACCEPT_TRANSFER')">
       ACCEPT_TRANSFER
     </mat-option>
-    <mat-option [value]="'DECLINE_TRANSFER'" (click)="command.emit('DECLINE_TRANSFER')">
+    <mat-option *ngIf="isDeclineTransferAllowed()" [value]="'DECLINE_TRANSFER'" (click)="command.emit('DECLINE_TRANSFER')">
       DECLINE_TRANSFER
     </mat-option>
-    <mat-option [value]="'REQUEST_DISPATCH'" (click)="command.emit('REQUEST_DISPATCH')">
+    <mat-option *ngIf="isRequestDispatchAllowed()" [value]="'REQUEST_DISPATCH'" (click)="command.emit('REQUEST_DISPATCH')">
       REQUEST_DISPATCH
     </mat-option>
-    <mat-option [value]="'ACCEPT_DISPATCH'" (click)="command.emit('ACCEPT_DISPATCH')">
+    <mat-option *ngIf="isAcceptDispatchAllowed()" [value]="'ACCEPT_DISPATCH'" (click)="command.emit('ACCEPT_DISPATCH')">
       ACCEPT_DISPATCH
     </mat-option>
-    <mat-option [value]="'DECLINE_DISPATCH'" (click)="command.emit('DECLINE_DISPATCH')">
+    <mat-option *ngIf="isDeclineDispatchAllowed()" [value]="'DECLINE_DISPATCH'" (click)="command.emit('DECLINE_DISPATCH')">
       DECLINE_DISPATCH
     </mat-option>
   </mat-select>

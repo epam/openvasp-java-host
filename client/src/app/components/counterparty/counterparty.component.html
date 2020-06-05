@@ -9,7 +9,6 @@
            [dataSource]="dataSource" multiTemplateDataRows matSort
            class="mat-elevation-z8">
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-<!--        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{column | transferHeader}} </th>-->
         <th mat-header-cell mat-sort-header *matHeaderCellDef> {{column}} </th>
         <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
       </ng-container>

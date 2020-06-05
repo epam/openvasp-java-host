@@ -1,10 +1,11 @@
 <mat-toolbar color="primary">
   <div class="container">
     <div class="header">
+      <p class="current-vasp">{{currentVASP}}</p>
       <p [routerLink]="'counterparties'" class="link" routerLinkActive="active-link">Counterparties</p>
       <p [routerLink]="'transfers'" class="link" routerLinkActive="active-link">Transfers</p>
       <p [routerLink]="'vasps'" class="link" routerLinkActive="active-link">VASPs</p>
-      <p [routerLink]="'settings'" class="link" routerLinkActive="active-link">Settings</p>
+<!--      <p [routerLink]="'settings'" class="link" routerLinkActive="active-link">Settings</p>-->
     </div>
     <button *ngIf="router.url === '/transfers'" mat-raised-button color="accent" (click)="openTransferDialog('create')" class="btn-create">Create transfer</button>
     <button *ngIf="router.url === '/counterparties'" mat-raised-button color="accent" (click)="openCounterpartyDialog('create')" class="btn-create">Create counterparty</button>

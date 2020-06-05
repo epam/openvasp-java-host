@@ -11,6 +11,7 @@ export class CounterpartyActionFormService {
       type: new FormControl('', [Validators.required]),
       vaan: new FormControl(''),
       customerNr: new FormControl('', [Validators.required, Validators.pattern('([0-9a-fA-F]){14}')]),
+      role: new FormControl(''),
       name: new FormControl('', [Validators.required]),
       bic: new FormControl('', [Validators.required]),
       birth: new FormGroup({
@@ -57,12 +58,20 @@ export class CounterpartyActionFormService {
 
   public initForm(type: string, counterparty: Counterparty | {}): void {
     if (type === 'edit') {
-      this.counterpartyForm.removeControl('vaan');
+      // this.counterpartyForm.removeControl('vaan');
       this.counterpartyForm.removeControl('customerNr');
     }
     if (counterparty) {
       this.counterpartyForm.controls.type.setValue((counterparty as Counterparty).type);
       this.counterpartyForm.controls.name.setValue((counterparty as Counterparty).name);
+
+      if((counterparty as Counterparty).vaan) {
+        this.counterpartyForm.controls.vaan.setValue((counterparty as Counterparty).vaan);
+      }
+
+      if((counterparty as Counterparty).role) {
+        this.counterpartyForm.controls.role.setValue((counterparty as Counterparty).role);
+      }
 
       if((counterparty as Counterparty).bic) {
         this.counterpartyForm.controls.bic.setValue((counterparty as Counterparty).bic);

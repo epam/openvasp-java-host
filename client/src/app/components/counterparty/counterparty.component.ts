@@ -17,7 +17,7 @@ export class CounterpartyComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource;
-  columnsToDisplay = ['id', 'name', 'type', 'vaan'];
+  columnsToDisplay = ['id', 'name', 'type', 'role', 'vaan'];
   expandedItem: Counterparty | null;
   resultsLength: number;
 

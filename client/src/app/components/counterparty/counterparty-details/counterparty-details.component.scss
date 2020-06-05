@@ -1,17 +1,34 @@
 .container {
   width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  .column {
+
+  .container-columns {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    padding: 10px;
 
-    &.action {
-      justify-content: center;
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
 
-      button:not(:first-child) {
-        margin-top: 5px;
+      &:first-of-type, &:last-of-type {
+        width: 15%;
+      }
+
+      &:nth-of-type(2), &:nth-of-type(3) {
+        width: 35%;
+      }
+
+      &.action {
+        justify-content: center;
+
+        button {
+          width: 80px;
+        }
+
+        button:not(:first-child) {
+          margin-top: 5px;
+        }
       }
     }
   }

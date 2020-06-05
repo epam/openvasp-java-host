@@ -30,7 +30,8 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private cdr: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public counterparty: CounterpartyDialogData
-  ) {}
+  ) {
+  }
 
   get counterpartyForm() {
     return this.counterpartyActionFormService.counterpartyForm;
@@ -51,9 +52,6 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
       case 'create':
         this.createCounterparty();
         break;
-      case 'repeat':
-        this.createCounterparty();
-        break;
       case 'edit':
         this.editCounterparty();
         break;
@@ -61,24 +59,18 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
   }
 
   private createCounterparty(): void {
-    if (this.counterparty.type === 'create') {
-      this.vaspService.getVAAN(this.currentVASP.vaspCode, this.counterpartyForm.value.customerNr).pipe(
-        tap(data => this.setVAAN(data)),
-        tap(() => this.counterpartyActionFormService.processBeforeSend()),
-        // tap(() => console.log(this.counterpartyForm.value))
-        switchMap(() => this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
-            tap(() => this.dialogService.closeDialog(true)),
-        ))
-      ).subscribe()
-    } else {
-      this.counterpartyActionFormService.processBeforeSend();
-      this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
-          tap(() => this.dialogService.closeDialog(true)),
-      ).subscribe();
-    }
+    this.vaspService.getVAAN(this.currentVASP.vaspCode, this.counterpartyForm.value.customerNr).pipe(
+      tap(data => this.setVAAN(data)),
+      tap(() => this.counterpartyActionFormService.processBeforeSend()),
+      // tap(() => console.log(this.counterpartyForm.value))
+      switchMap(() => this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
+        tap(() => this.dialogService.closeDialog(true)),
+      ))
+    ).subscribe()
   }
 
   private editCounterparty(): void {
+    this.counterpartyActionFormService.processBeforeSend();
     this.counterpartyService.editCounterparty((this.counterparty.counterparty as Counterparty).id, this.counterpartyForm.value).pipe(
       tap(() => this.dialogService.closeDialog(true))
     ).subscribe();

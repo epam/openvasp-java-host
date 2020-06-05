@@ -2,6 +2,7 @@ export interface Counterparty {
   id: number;
   name: string;
   type: string;
+  role: string;
   vaan: string;
   bic: string;
   birth: {birthTown: string, birthCountry: string, birthDate: string};
