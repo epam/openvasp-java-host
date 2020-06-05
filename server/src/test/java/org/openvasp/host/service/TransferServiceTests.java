@@ -24,14 +24,12 @@ public class TransferServiceTests extends BaseServiceTests {
         val transfer0 = transfers.get(0);
         assertThat(transfer0)
                 .hasId(1001)
-                .hasTrType(TransferType.INCOMING)
-                .hasSessionId("0x8e8667b04d7ef44b8ae5617b472a0108");
+                .hasTrType(TransferType.INCOMING);
 
         val transfer1 = transfers.get(1);
         assertThat(transfer1)
                 .hasId(1002)
-                .hasTrType(TransferType.OUTGOING)
-                .hasSessionId("0xda770238290a75408b8397d0905d21bf");
+                .hasTrType(TransferType.OUTGOING);
     }
 
 }

@@ -1,6 +1,6 @@
 {
   "id": 1002,
   "trType": "OUTGOING",
-  "trStatus": "SESSION_REQUESTED",
-  "sessionId": "0xda770238290a75408b8397d0905d21bf"
+  "trStatus": "CREATED",
+  "sessionId": null
 }

@@ -2,7 +2,10 @@
 
     <target name="h2-delete">
         <delete>
-            <fileset dir="${maven.project.basedir}/h2">
+            <fileset dir="${maven.project.basedir}/db1">
+                <include name="openvasp.*"/>
+            </fileset>
+            <fileset dir="${maven.project.basedir}/db2">
                 <include name="openvasp.*"/>
             </fileset>
         </delete>

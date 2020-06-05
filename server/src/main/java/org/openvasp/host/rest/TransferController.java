@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.openvasp.host.facade.TransferFacade;
-import org.openvasp.host.model.dto.TransferDto;
-import org.openvasp.host.model.dto.TransferFindRequest;
-import org.openvasp.host.model.dto.TransferShortDto;
-import org.openvasp.host.model.dto.TransferUpdate;
+import org.openvasp.host.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -28,14 +25,14 @@ import java.util.Optional;
 @Slf4j
 public class TransferController {
 
-    private final TransferFacade transferFacade;
+    private final TransferFacade facade;
 
     @Autowired
-    public TransferController(final TransferFacade transferFacade) {
-        this.transferFacade = transferFacade;
+    public TransferController(final TransferFacade facade) {
+        this.facade = facade;
     }
 
-    @GetMapping
+    @GetMapping(path = "/find")
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Find transfer objects by criteria")
@@ -43,7 +40,7 @@ public class TransferController {
             @Valid final TransferFindRequest request) {
 
         log.debug("find: {}", request);
-        return transferFacade.find(request);
+        return facade.find(request);
     }
 
     @GetMapping(path = "/{id}")
@@ -51,19 +48,19 @@ public class TransferController {
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Find a transfer object by ID")
     public Optional<TransferDto> findById(
-            @PathVariable @Positive Integer id) {
+            @PathVariable @Positive final Integer id) {
 
         log.debug("findById: {}", id);
-        return transferFacade.findById(id);
+        return facade.findById(id);
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Get all transfer objects")
     public List<TransferShortDto> findAll() {
         log.debug("findAll");
-        return transferFacade.findAll();
+        return facade.findAll();
     }
 
     @PostMapping
@@ -74,7 +71,7 @@ public class TransferController {
             @RequestBody @Valid final TransferUpdate update) {
 
         log.debug("create");
-        return transferFacade.create(update);
+        return facade.create(update);
     }
 
     @PutMapping(path = "/{id}")
@@ -82,11 +79,11 @@ public class TransferController {
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Update a transfer")
     public TransferDto update(
-            @PathVariable @Positive Integer id,
+            @PathVariable @Positive final Integer id,
             @RequestBody @Valid final TransferUpdate update) {
 
         log.debug("update {}", id);
-        return transferFacade.update(id, update);
+        return facade.update(id, update);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -94,10 +91,22 @@ public class TransferController {
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Delete a transfer")
     public void delete(
-            @PathVariable @Positive Integer id) {
+            @PathVariable @Positive final Integer id) {
 
         log.debug("delete {}", id);
-        transferFacade.delete(id);
+        facade.delete(id);
+    }
+
+    @PostMapping(path = "/{id}/command/{command}")
+    @Operation(
+            security = @SecurityRequirement(name = "basicAuth"),
+            summary = "Create a new transfer")
+    public TransferDto sendCommand(
+            @PathVariable @Positive final Integer id,
+            @PathVariable final TransferCommand command) {
+
+        log.debug("command {}", command);
+        return facade.doCommand(id, command);
     }
 
 }
