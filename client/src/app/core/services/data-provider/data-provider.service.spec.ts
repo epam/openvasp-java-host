@@ -9,6 +9,8 @@ import { environment } from '../../../../environments/environment';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreateTransferData, Transfer } from '../../models/transfer.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Counterparty } from '../../models/counterparty.model';
+import { VASP } from '../../models/vasp.model';
 
 describe('DataProviderService', () => {
   beforeEach(() => {
@@ -200,6 +202,201 @@ describe('DataProviderService', () => {
       expect(mockReq.request.responseType).toEqual('json');
 
       mockReq.flush(response);
+      httpMock.verify();
+    }
+  ));
+
+  it('should get counterparties', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      const counterparties: Counterparty[] = [{
+        id: 1001,
+        name: "Person-1",
+        role: "ORIGINATOR",
+        type: "NATURAL_PERSON",
+        vaan: "7dface6100000000000001a7",
+        vaspCode: 'test'
+      }];
+
+      dataService.getCounterparties().pipe(
+        tap(data => expect(data).toEqual(counterparties))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + 'counterparties');
+
+      expect(mockReq.cancelled).toBeFalsy();
+      expect(mockReq.request.responseType).toEqual('json');
+
+      mockReq.flush(counterparties);
+      httpMock.verify();
+    }
+  ));
+
+  it('should get counterparty by id', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      const counterparty: Counterparty = {
+        vaspCode: '',
+        bic: "BIC-1",
+        birth: null,
+        id: 1003,
+        jurIds: [],
+        name: "Bank-1",
+        natIds: [],
+        postalAddress: null,
+        role: "ORIGINATOR",
+        type: "BANK",
+        vaan: "7dface6100000000000003a9"
+      };
+
+      dataService.getCounterparty(1003).pipe(
+        tap(data => expect(data).toEqual(counterparty))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + `counterparties/1003`);
+
+      expect(mockReq.cancelled).toBeFalsy();
+      expect(mockReq.request.responseType).toEqual('json');
+
+      mockReq.flush(counterparty);
+      httpMock.verify();
+    }
+  ));
+
+  it('should edit counterparty', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      const counterparty: Counterparty = {
+        vaspCode: '',
+        bic: "BIC-1",
+        birth: null,
+        id: 1003,
+        jurIds: [],
+        name: "Bank-1",
+        natIds: [],
+        postalAddress: null,
+        role: "ORIGINATOR",
+        type: "BANK",
+        vaan: "7dface6100000000000003a9"
+      };
+
+      dataService.editCounterparty(1003, counterparty).pipe(
+        tap(data => expect(data).toEqual(counterparty))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + `counterparties/1003`);
+
+      expect(mockReq.cancelled).toBeFalsy();
+      expect(mockReq.request.responseType).toEqual('json');
+
+      mockReq.flush(counterparty);
+      httpMock.verify();
+    }
+  ));
+
+  it('should delete counterparty', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      dataService.deleteCounterparty(1003).pipe(
+        tap(data => expect(data).toEqual(null))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + `counterparties/1003`);
+
+      expect(mockReq.cancelled).toBeFalsy();
+
+      httpMock.verify();
+    }
+  ));
+
+  it('should create counterparty', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      const counterparty: Counterparty = {
+        vaspCode: '',
+        bic: "BIC-1",
+        birth: null,
+        id: 1003,
+        jurIds: [],
+        name: "Bank-1",
+        natIds: [],
+        postalAddress: null,
+        role: "ORIGINATOR",
+        type: "BANK",
+        vaan: "7dface61000000000000036c"
+      };
+
+      dataService.createCounterparty(counterparty).pipe(
+        tap(data => expect(data).toEqual(counterparty))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + `counterparties`);
+
+      expect(mockReq.cancelled).toBeFalsy();
+      expect(mockReq.request.responseType).toEqual('json');
+
+      mockReq.flush(counterparty);
+      httpMock.verify();
+    }
+  ));
+
+  it('should get vasps', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      const vasps: VASP[] = [{
+        id: "0x6befaf0656b953b188a0ee3bf3db03d07dface61",
+        name: "VASP-1",
+        vaspCode: "7dface61",
+      }];
+
+      dataService.getVASPs().pipe(
+        tap(data => expect(data).toEqual(vasps))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + `vasp`);
+
+      expect(mockReq.cancelled).toBeFalsy();
+      expect(mockReq.request.responseType).toEqual('json');
+
+      mockReq.flush(vasps);
+      httpMock.verify();
+    }
+  ));
+
+  it('should get current vasp', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      const vasp: VASP = {id: "0x6befaf0656b953b188a0ee3bf3db03d07dface61", name: "VASP-1", vaspCode: "7dface61"};
+
+      dataService.getCurrentVASP().pipe(
+        tap(data => expect(data).toEqual(vasp))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + `vasp/current`);
+
+      expect(mockReq.cancelled).toBeFalsy();
+      expect(mockReq.request.responseType).toEqual('json');
+
+      httpMock.verify();
+    }
+  ));
+
+  it('should get vaan', inject(
+    [HttpTestingController, DataProviderService],
+    (httpMock: HttpTestingController, dataService: DataProviderService) => {
+      const vaspCode = '7dface61';
+      const customerNumber = '1234567890ABCD';
+      const response = vaspCode + customerNumber + '6c';
+
+      dataService.getVAAN(vaspCode, customerNumber).pipe(
+        tap(data => expect(data).toEqual(response))
+      ).subscribe();
+
+      const mockReq = httpMock.expectOne(environment.apiUrl + `vaan/${vaspCode}/${customerNumber}`);
+
+      expect(mockReq.cancelled).toBeFalsy();
+      expect(mockReq.request.responseType).toEqual('text');
+
       httpMock.verify();
     }
   ));
