@@ -44,7 +44,6 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.counterpartyForm);
     this.initForm(this.counterparty.type);
     this.getCurrentVASP();
   }
@@ -68,7 +67,6 @@ export class CounterpartyActionComponent implements OnInit, OnDestroy {
     this.vaspService.getVAAN(this.currentVASP.vaspCode, this.counterpartyForm.value.customerNr).pipe(
       tap(data => this.setVAAN(data)),
       tap(() => this.counterpartyActionFormService.processBeforeSend()),
-      // tap(() => console.log(this.counterpartyForm.value))
       switchMap(() => this.counterpartyService.createCounterparty(this.counterpartyForm.value).pipe(
         tap(() => this.dialogService.closeDialog(true)),
       ))

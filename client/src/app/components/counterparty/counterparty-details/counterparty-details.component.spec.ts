@@ -5,6 +5,7 @@ import { DialogService } from '../../dialog/dialog.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Counterparty } from '../../../core/models/counterparty.model';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('CounterpartyDeatilsComponent', () => {
   let component: CounterpartyDetailsComponent;
@@ -16,7 +17,8 @@ describe('CounterpartyDeatilsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
       ],
       declarations: [CounterpartyDetailsComponent],
       providers: [
@@ -45,6 +47,7 @@ describe('CounterpartyDeatilsComponent', () => {
       birth: {birthCountry: '', birthDate: '', birthTown: ''},
       jurIds: [],
       natIds: [],
+      role: '',
       postalAddress: undefined,
       id: 1, name: 'Test', type: 'INCOMING', vaan: 'Test'
     };

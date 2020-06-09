@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Transfer } from '../../../core/models/transfer.model';
 
 @Component({
@@ -7,13 +7,9 @@ import { Transfer } from '../../../core/models/transfer.model';
   styleUrls: ['./transfer-command.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TransferCommandComponent implements OnInit {
+export class TransferCommandComponent {
   @Input() transfer: Transfer;
   @Output() command: EventEmitter<string> = new EventEmitter();
-
-  ngOnInit(): void {
-    // console.log(this.transfer);
-  }
 
   public isRequestSessionAllowed(): boolean {
     return this.transfer.trType === 'OUTGOING' && this.transfer.trStatus !== 'SESSION_CONFIRMED' && this.transfer.trStatus !== 'TRANSFER_ALLOWED';
