@@ -19,7 +19,7 @@ export class DataProviderService {
     private snackBar: MatSnackBar
   ) {}
 
-  public getTransfers(): Observable<TransferResponse> {
+  public getTransfers(): Observable<Transfer[]> {
     return this.http.get(API_URL + 'transfers').pipe(
       map(this.extractData),
       // tslint:disable-next-line:no-any
@@ -79,7 +79,7 @@ export class DataProviderService {
     );
   }
 
-  public getCounterparty(id: number): Observable<Counterparty> {
+  public getCounterparty(id: number | string): Observable<Counterparty> {
     return this.http.get(API_URL + 'counterparties/' + id).pipe(
       map(this.extractData),
       // tslint:disable-next-line:no-any
@@ -87,7 +87,7 @@ export class DataProviderService {
     );
   }
 
-  public editCounterparty(id: number, counterparty: Counterparty): Observable<Counterparty> {
+  public editCounterparty(id: number | string, counterparty: Counterparty): Observable<Counterparty> {
     return this.http.put(API_URL + `counterparties/${id}`, counterparty).pipe(
       map(this.extractData),
       tap(() => this.snackBar.open('Counterparty was edited', 'Close')),
@@ -96,7 +96,7 @@ export class DataProviderService {
     )
   }
 
-  public deleteCounterparty(id: number): Observable<Counterparty> {
+  public deleteCounterparty(id: number | string): Observable<Counterparty> {
     return this.http.delete(API_URL + `counterparties/${id}`).pipe(
       map(this.extractData),
       tap(() => this.snackBar.open('Counterparty was deleted', 'Close')),

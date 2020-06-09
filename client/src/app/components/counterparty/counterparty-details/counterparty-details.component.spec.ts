@@ -43,6 +43,7 @@ describe('CounterpartyDeatilsComponent', () => {
 
   xit('should get counterparties on init', () => {
     const counterpartyMock: Counterparty = {
+      vaspCode: '',
       bic: '',
       birth: {birthCountry: '', birthDate: '', birthTown: ''},
       jurIds: [],

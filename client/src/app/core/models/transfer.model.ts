@@ -7,19 +7,21 @@ export interface Transfer {
   assetType: string;
   beneficiary: Beneficiary;
   counterpartyVasp: Counterparty;
-  created: string;
-  destAddr: string;
+  created?: string;
+  destAddr?: string;
   id: number;
-  originator: Originator;
-  sendAddr: string;
-  sessionId: string;
-  sessionReplyCode: number;
-  trStatus: string;
-  trType: string;
-  transferReplyCode: number;
-  txHash: string;
-  updated: string;
-  commentary: string;
+  name: string;
+  vaspCode?: string;
+  originator?: Originator;
+  sendAddr?: string;
+  sessionId?: string;
+  sessionReplyCode?: number;
+  trStatus?: string;
+  trType?: string;
+  transferReplyCode?: number;
+  txHash?: string;
+  updated?: string;
+  commentary?: string;
 }
 
 export interface TransferResponse {

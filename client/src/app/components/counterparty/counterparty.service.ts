@@ -14,19 +14,19 @@ export class CounterpartyService {
     );
   }
 
-  public getCounterparty(id: number): Observable<Counterparty> {
+  public getCounterparty(id: number | string): Observable<Counterparty> {
     return this.dataProvider.getCounterparty(id).pipe(
       tap(data => data)
     );
   }
 
-  public editCounterparty(id: number, counterparty: Counterparty): Observable<Counterparty> {
+  public editCounterparty(id: number | string, counterparty: Counterparty): Observable<Counterparty> {
     return this.dataProvider.editCounterparty(id, counterparty).pipe(
       tap(data => data)
     );
   }
 
-  public deleteCounterparty(id: number): Observable<Counterparty> {
+  public deleteCounterparty(id: number | string): Observable<Counterparty> {
     return this.dataProvider.deleteCounterparty(id).pipe(
       tap(data => data)
     );

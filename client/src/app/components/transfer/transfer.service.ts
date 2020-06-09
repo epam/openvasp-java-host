@@ -8,7 +8,7 @@ import { Transfer, TransferResponse } from '../../core/models/transfer.model';
 export class TransferService {
   constructor(private dataProvider: DataProviderService) {}
 
-  public getTransfers(): Observable<TransferResponse> {
+  public getTransfers(): Observable<Transfer[]> {
     return this.dataProvider.getTransfers().pipe(
       tap(data => data)
     );

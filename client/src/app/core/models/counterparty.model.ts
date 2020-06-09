@@ -1,14 +1,15 @@
 export interface Counterparty {
-  id: number;
+  id: string | number;
   name: string;
-  type: string;
-  role: string;
-  vaan: string;
-  bic: string;
-  birth: {birthTown: string, birthCountry: string, birthDate: string};
-  jurIds: JurID[];
-  natIds: NatID[];
-  postalAddress: PostalAddress;
+  type?: string;
+  role?: string;
+  vaan?: string;
+  bic?: string;
+  vaspCode: string;
+  birth?: {birthTown: string, birthCountry: string, birthDate: string};
+  jurIds?: JurID[];
+  natIds?: NatID[];
+  postalAddress?: PostalAddress;
 }
 
 export interface JurID {
