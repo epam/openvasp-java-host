@@ -13,7 +13,6 @@ import { tap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-
   public currentVASP: string;
 
   constructor(

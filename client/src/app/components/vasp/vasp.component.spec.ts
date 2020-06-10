@@ -6,7 +6,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { VASP } from '../../core/models/vasp.model';
 import { of } from 'rxjs';
 
-describe('CounterpartyDeatilsComponent', () => {
+describe('VASPComponent', () => {
   let component: VASPComponent;
   let fixture: ComponentFixture<VASPComponent>;
   let vaspService: VASPService;
