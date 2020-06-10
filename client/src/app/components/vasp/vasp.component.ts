@@ -14,7 +14,6 @@ export class VASPComponent implements OnInit {
   public isLoadingResults = true;
   public dataSource;
   public columnsToDisplay = ['id', 'vaspCode', 'name'];
-  public resultsLength;
 
   constructor(
     private vaspService: VASPService,

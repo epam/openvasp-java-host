@@ -7,7 +7,6 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SettingsComponent } from './components/settings/settings.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -25,7 +24,6 @@ import { VASPModule } from './components/vasp/vasp.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    SettingsComponent
   ],
   imports: [
     BrowserModule,
