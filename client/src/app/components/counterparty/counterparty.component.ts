@@ -32,7 +32,7 @@ export class CounterpartyComponent implements AfterViewInit {
     this.getCounterparties();
   }
 
-  onCompletedAction(): void {
+  public onCompletedAction(): void {
     this.getCounterparties();
   }
 

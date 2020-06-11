@@ -37,7 +37,7 @@ export class CounterpartyDetailsComponent implements OnInit {
     this.getCounterparty();
   }
 
-  openCounterpartyDialog(type: string): void {
+  public openCounterpartyDialog(type: string): void {
     this.dialogService.openDialog({counterparty:this.counterpartyData, type: type}, CounterpartyActionComponent, '', '900px', '850px').pipe(
       tap(() => this.completedAction.emit(true)),
     ).subscribe();

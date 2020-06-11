@@ -58,7 +58,6 @@ export class CounterpartyActionFormService {
 
   public initForm(type: string, counterparty: Counterparty | {}): void {
     if (type === 'edit') {
-      // this.counterpartyForm.removeControl('vaan');
       this.counterpartyForm.removeControl('customerNr');
     }
     if (counterparty) {

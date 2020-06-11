@@ -10,7 +10,7 @@ import { CounterpartyActionComponent } from './counterparty-action/counterparty-
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CounterpartyActionFormService } from './counterparty-action/counterparty-action.form';
+import { CounterpartyActionFormService } from './counterparty-action/counterparty-action.form.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';

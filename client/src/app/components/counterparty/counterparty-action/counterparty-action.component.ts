@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Counterparty, CounterpartyDialogData } from '../../../core/models/counterparty.model';
-import { CounterpartyActionFormService } from './counterparty-action.form';
+import { CounterpartyActionFormService } from './counterparty-action.form.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { CounterpartyService } from '../counterparty.service';
 import { DialogService } from '../../dialog/dialog.service';
