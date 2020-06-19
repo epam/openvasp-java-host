@@ -2,7 +2,7 @@ package org.openvasp.host.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.openvasp.client.model.TransferMessage.VirtualAssetType;
+import org.openvasp.client.model.TransferRequest.VirtualAssetType;
 import org.openvasp.host.model.TransferStatus;
 import org.openvasp.host.model.TransferType;
 
