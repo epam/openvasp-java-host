@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.openvasp.client.model.TransferMessage.VirtualAssetType;
+import org.openvasp.client.model.TransferRequest.VirtualAssetType;
 import org.openvasp.host.model.TransferStatus;
 import org.openvasp.host.model.TransferType;
 

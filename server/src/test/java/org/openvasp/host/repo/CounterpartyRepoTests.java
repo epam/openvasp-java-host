@@ -22,7 +22,7 @@ public class CounterpartyRepoTests extends BaseRepoTests {
     @Test
     public void testFindAll() {
         val counterparties = counterpartyRepo.findAll();
-        assertThat(counterparties).hasSize(6);
+        assertThat(counterparties).hasSize(12);
 
         val counterparty0 = counterparties.get(0);
         assertThat(counterparty0)
