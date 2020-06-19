@@ -39,25 +39,17 @@ public interface TransferMapper {
 
     @Mapping(target = "assetType", source = "transfer.assetType")
     @Mapping(target = "amount", source = "transfer.amount")
-    @Mapping(target = "destAddr", source = "transfer.destinationAddress")
-    @Mapping(target = "originator", ignore = true)
-    @Mapping(target = "beneficiary", ignore = true)
     void toEntity(TransferRequest request, @MappingTarget TransferEntity entity);
 
-    @Mapping(target = "assetType", source = "transfer.assetType")
-    @Mapping(target = "amount", source = "transfer.amount")
-    @Mapping(target = "destAddr", source = "transfer.destinationAddress")
     @Mapping(target = "txHash", source = "tx.id")
     @Mapping(target = "txDateTime", source = "tx.dateTime")
     @Mapping(target = "sendAddr", source = "tx.sendingAddress")
-    @Mapping(target = "originator", ignore = true)
-    @Mapping(target = "beneficiary", ignore = true)
     void toEntity(TransferDispatch request, @MappingTarget TransferEntity entity);
 
     @Mapping(target = "transfer.assetType", source = "assetType")
     @Mapping(target = "transfer.amount", source = "amount")
-    @Mapping(target = "transfer.destinationAddress", source = "destAddr")
-    @Mapping(target = "transfer.transferType", expression = "java(org.openvasp.client.model.TransferMessage.TransferType.BLOCKCHAIN_TRANSFER)")
+    @Mapping(target = "destinationAddress", source = "destAddr")
+    @Mapping(target = "transfer.transferType", expression = "java(org.openvasp.client.model.TransferRequest.TransferType.BLOCKCHAIN_TRANSFER)")
     @Mapping(target = "tx.id", source = "txHash")
     @Mapping(target = "tx.sendingAddress", source = "sendAddr")
     @Mapping(target = "tx.dateTime", expression = "java(ZonedDateTime.now())")

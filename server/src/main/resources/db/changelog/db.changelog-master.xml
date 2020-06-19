@@ -78,7 +78,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="session_id" type="varchar(34)"/>
-            <column name="amount" type="decimal(12, 2)"/>
+            <column name="amount" type="decimal(12, 8)"/>
             <column name="asset_type" type="varchar(5)" defaultValue="ETH"/>
             <column name="send_addr" type="varchar(50)"/>
             <column name="dest_addr" type="varchar(50)"/>
