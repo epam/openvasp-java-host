@@ -3,6 +3,7 @@ package org.openvasp.host.service.impl;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.apache.commons.lang3.StringUtils;
 import org.openvasp.client.VaspInstance;
 import org.openvasp.client.common.VaspException;
 import org.openvasp.client.model.*;
@@ -165,12 +166,11 @@ public class VaspServiceImpl implements VaspService {
         checkTransferType(transferEntity, TransferType.INCOMING);
         checkTransferStatus(transferEntity, TransferStatus.TRANSFER_REQUESTED);
 
-        val transferInfo = transferMapper.toTransferInfo(transferEntity);
         val message = new TransferReply();
         message.getHeader().setResponseCode(responseCode);
-        message.setOriginator(transferInfo.getOriginator());
-        message.setBeneficiary(transferInfo.getBeneficiary());
-        message.setTransfer(transferInfo.getTransfer());
+        if ("1".equals(responseCode)) {
+            message.setDestinationAddress(transferEntity.getDestAddr());
+        }
 
         val session = getBeneficiarySession(transferEntity.getSessionId());
         session.sendMessage(message);
@@ -194,10 +194,10 @@ public class VaspServiceImpl implements VaspService {
 
         val transferInfo = transferMapper.toTransferInfo(transferEntity);
         val message = new TransferDispatch();
-        message.setOriginator(transferInfo.getOriginator());
-        message.setBeneficiary(transferInfo.getBeneficiary());
-        message.setTransfer(transferInfo.getTransfer());
         message.setTx(transferInfo.getTx());
+        if (StringUtils.isNotEmpty(transferEntity.getDestAddr())) {
+            message.getTx().setSendingAddress(transferEntity.getDestAddr());
+        }
 
         val session = getOriginatorSession(transferEntity.getSessionId());
         session.sendMessage(message);
@@ -215,13 +215,8 @@ public class VaspServiceImpl implements VaspService {
         checkTransferType(transferEntity, TransferType.INCOMING);
         checkTransferStatus(transferEntity, TransferStatus.TRANSFER_DISPATCHED);
 
-        val transferInfo = transferMapper.toTransferInfo(transferEntity);
         val message = new TransferConfirmation();
         message.getHeader().setResponseCode(responseCode);
-        message.setOriginator(transferInfo.getOriginator());
-        message.setBeneficiary(transferInfo.getBeneficiary());
-        message.setTransfer(transferInfo.getTransfer());
-        message.setTx(transferInfo.getTx());
 
         val session = getBeneficiarySession(transferEntity.getSessionId());
         session.sendMessage(message);
@@ -326,13 +321,23 @@ public class VaspServiceImpl implements VaspService {
     private void onTransferRequest(
             @NonNull final TransferRequest message) {
 
+        val originator = message.getOriginator();
+        val originatorEntity = counterpartyService
+                .findByVaan(originator.getVaan())
+                .orElseGet(() -> counterpartyService.saveIncomingOriginator(originator));
+
+        val beneficiary = message.getBeneficiary();
+        val beneficiaryEntity = counterpartyService
+                .findByVaan(beneficiary.getVaan())
+                .orElseGet(() -> counterpartyService.saveIncomingBeneficiary(beneficiary));
+
         transferService
                 .findBySessionId(message.getHeader().getSessionId())
                 .ifPresent(transferEntity -> {
                     transferEntity.setTrStatus(TransferStatus.TRANSFER_REQUESTED);
                     transferMapper.toEntity(message, transferEntity);
-                    transferEntity.setOriginator(getCounterpartyEntity(message.getOriginator().getVaan()));
-                    transferEntity.setBeneficiary(getCounterpartyEntity(message.getBeneficiary().getVaan()));
+                    transferEntity.setOriginator(originatorEntity);
+                    transferEntity.setBeneficiary(beneficiaryEntity);
                     transferService.save(transferEntity);
                 });
     }
@@ -346,6 +351,7 @@ public class VaspServiceImpl implements VaspService {
                 .ifPresent(transferEntity -> {
                     if ("1".equals(responseCode)) {
                         transferEntity.setTrStatus(TransferStatus.TRANSFER_ALLOWED);
+                        transferEntity.setDestAddr(message.getDestinationAddress());
                     } else {
                         transferEntity.setTrStatus(TransferStatus.TRANSFER_FORBIDDEN);
                     }
@@ -430,7 +436,7 @@ public class VaspServiceImpl implements VaspService {
     private CounterpartyEntity getCounterpartyEntity(@NonNull final Vaan vaan) {
         return counterpartyService
                 .findByVaan(vaan)
-                .orElseThrow(() -> new VaspException("CounterpartyEntity VAAN = {} is not found", vaan));
+                .orElseThrow(() -> new VaspException("CounterpartyEntity VAAN = %s is not found", vaan));
     }
 
     private void saveSession(@NonNull final Session session) {

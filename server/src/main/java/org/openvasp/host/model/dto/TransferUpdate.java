@@ -2,7 +2,7 @@ package org.openvasp.host.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.openvasp.client.model.TransferMessage.VirtualAssetType;
+import org.openvasp.client.model.TransferRequest.VirtualAssetType;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
