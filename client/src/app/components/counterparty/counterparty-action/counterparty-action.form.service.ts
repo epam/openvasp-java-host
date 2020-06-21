@@ -8,39 +8,39 @@ export class CounterpartyActionFormService {
 
   constructor() {
     this.counterpartyForm = new FormGroup({
-      type: new FormControl('', [Validators.required]),
+      type: new FormControl(''),
       vaan: new FormControl(''),
-      customerNr: new FormControl('', [Validators.required, Validators.pattern('([0-9a-fA-F]){14}')]),
+      customerNr: new FormControl('', [Validators.pattern('([0-9a-fA-F]){14}')]),
       role: new FormControl(''),
-      name: new FormControl('', [Validators.required]),
-      bic: new FormControl('', [Validators.required]),
+      name: new FormControl(''),
+      bic: new FormControl(''),
       birth: new FormGroup({
-        birthTown: new FormControl('', [Validators.required]),
-        birthCountry: new FormControl('', [Validators.required]),
-        birthDate: new FormControl('', [Validators.required]),
+        birthTown: new FormControl(''),
+        birthCountry: new FormControl(''),
+        birthDate: new FormControl(''),
       }),
       postalAddress: new FormGroup({
-        street: new FormControl('', [Validators.required]),
-        number: new FormControl('', [Validators.required]),
-        adrline: new FormControl('', [Validators.required]),
-        postCode: new FormControl('', [Validators.required]),
-        town: new FormControl('', [Validators.required]),
-        country: new FormControl('', [Validators.required]),
+        street: new FormControl(''),
+        number: new FormControl(''),
+        adrline: new FormControl(''),
+        postCode: new FormControl(''),
+        town: new FormControl(''),
+        country: new FormControl(''),
       }),
       natIds: new FormArray([
         new FormGroup({
-          idStr: new FormControl('', [Validators.required]),
-          country: new FormControl('', [Validators.required]),
-          issuer: new FormControl('', [Validators.required]),
-          idType: new FormControl('', [Validators.required]),
+          idStr: new FormControl(''),
+          country: new FormControl(''),
+          issuer: new FormControl(''),
+          idType: new FormControl(''),
         })
       ]),
       jurIds: new FormArray([
         new FormGroup({
-          idStr: new FormControl('', [Validators.required]),
-          country: new FormControl('', [Validators.required]),
-          issuer: new FormControl('', [Validators.required]),
-          idType: new FormControl('', [Validators.required]),
+          idStr: new FormControl(''),
+          country: new FormControl(''),
+          issuer: new FormControl(''),
+          idType: new FormControl(''),
         })
       ])
     });

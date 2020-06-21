@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Transfer } from '../../core/models/transfer.model';
 import { TransferService } from './transfer.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator  } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
 
 @Component({
@@ -17,7 +17,7 @@ export class TransferComponent implements AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   dataSource;
-  columnsToDisplay = ['trType', 'id', 'created', 'trStatus', 'sessionId'];
+  columnsToDisplay = ['trType', 'id', 'updated', 'trStatus', 'sessionId'];
   expandedItem: Transfer | null;
   resultsLength: number;
 
@@ -32,7 +32,7 @@ export class TransferComponent implements AfterViewInit {
     this.getTransfers();
   }
 
-  public onCompletedAction(event): void {
+  public onCompletedAction(): void {
     this.getTransfers();
   }
 

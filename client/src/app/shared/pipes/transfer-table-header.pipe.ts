@@ -12,8 +12,8 @@ export class TransferTableHeaderPipe implements PipeTransform {
         return 'ID';
         break;
       }
-      case 'created': {
-        return 'Created';
+      case 'updated': {
+        return 'Updated';
         break;
       }
       case 'trStatus': {

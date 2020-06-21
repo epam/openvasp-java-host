@@ -37,9 +37,7 @@ export class TransferDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.transferService.getTransfer(this.transfer.id).pipe(
-      tap(data => this.setTransferData(data))
-    ).subscribe();
+    this.getTransfer();
   }
 
   public openTransferDialog(type: string): void {
@@ -68,6 +66,14 @@ export class TransferDetailsComponent implements OnInit {
 
   public isCommandAllowed(): boolean {
     return this.transfer.trStatus !== 'DISPATCH_CONFIRMED';
+  }
+
+  private getTransfer(): void {
+    if(this.transfer?.id) {
+      this.transferService.getTransfer(this.transfer.id).pipe(
+        tap(data => this.setTransferData(data))
+      ).subscribe();
+    }
   }
 
   private setTransferData(data: Transfer): void {
