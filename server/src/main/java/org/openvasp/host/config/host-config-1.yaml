@@ -1,5 +1,5 @@
 vaspConfig:
-  whisperNodeUrl: http://localhost:8545
+  whisperNodeUrl: http://ecsd00300b97.epam.com:8545
   contractNodeUrl: https://ropsten.infura.io/v3/1d2e97e9b2344fcdae27e3763f866664
   vaspCode: 7dface61
   handshakePrivateKey: 0xe7578145d518e5272d660ccfdeceedf2d55b90867f2b7a6e54dc726662aebac2
@@ -16,9 +16,7 @@ vaspConfig:
       town: Vasptown
       country: US
   acknowledgmentEnabled: false
-infuraSecret:
+infuraSecret: dd3557289f4d4b65a1131e3cf6c96884
 httpBasicAuth:
   name: ovasp
   password: 07-May-2020
-
-

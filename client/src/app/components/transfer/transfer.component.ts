@@ -34,7 +34,7 @@ export class TransferComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    // this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.getTransfers(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
@@ -49,10 +49,11 @@ export class TransferComponent implements OnInit, AfterViewInit {
   }
 
   private setTransfersData(data): void {
-    this.pageSize = data.size;
-    this.dataSource = new MatTableDataSource<Transfer>(data.content);
+    console.log(JSON.stringify(data));
+    // this.pageSize = data.size;
+    this.dataSource = new MatTableDataSource<Transfer>(data);
     this.dataSource.sort = this.sort;
-    this.resultsLength = data.totalElements;
+    // this.resultsLength = data.totalElements;
     this.isLoadingResults = false;
     this.cdr.markForCheck();
   }

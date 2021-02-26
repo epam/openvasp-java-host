@@ -33,7 +33,7 @@ public class CounterpartyController {
         this.facade = facade;
     }
 
-    @GetMapping
+    @GetMapping(path = "/all")
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Get all counterparties objects")
