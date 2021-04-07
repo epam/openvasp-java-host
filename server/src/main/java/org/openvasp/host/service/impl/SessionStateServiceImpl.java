@@ -30,16 +30,6 @@ public class SessionStateServiceImpl
 
     @Override
     public List<SessionState> getAll() {
-//        Stream<SessionStateEntity> strm = repo.findAll().stream();
-//        Object[] arr = strm.toArray();
-//        ArrayList<SessionStateEntity> lst = new ArrayList();
-//        for (Object obj : arr) {
-//            lst.add((SessionStateEntity)obj);
-//            Json.fromJson(SessionState.class, lst.get(0).getJson());
-//        }
-////        SessionState state = new SessionState();
-//
-//        Stream<Object> nstrm = strm.map(entity -> Json.fromJson(SessionState.class, entity.getJson()));
         return repo.findAll().stream()
                 .map(entity -> Json.fromJson(SessionState.class, entity.getJson()))
                 .collect(Collectors.toList());
