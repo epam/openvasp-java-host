@@ -33,7 +33,7 @@ public class CounterpartyController {
         this.facade = facade;
     }
 
-    @GetMapping
+    @GetMapping(path = "/all", produces = "application/json; charset=utf-8")
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Get all counterparties objects")
@@ -42,7 +42,7 @@ public class CounterpartyController {
         return facade.findAll();
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}", produces = "application/json; charset=utf-8")
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Find counterparty object by ID")
@@ -53,7 +53,7 @@ public class CounterpartyController {
         return facade.findById(id);
     }
 
-    @PostMapping
+    @PostMapping(produces = "application/json; charset=utf-8")
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Create a new counterparty")
@@ -64,7 +64,7 @@ public class CounterpartyController {
         return facade.create(update);
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{id}", produces = "application/json; charset=utf-8")
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Update a counterparty")
@@ -76,7 +76,7 @@ public class CounterpartyController {
         return facade.update(id, update);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}", produces = "application/json; charset=utf-8")
     @Operation(
             security = @SecurityRequirement(name = "basicAuth"),
             summary = "Delete a counterparty")
