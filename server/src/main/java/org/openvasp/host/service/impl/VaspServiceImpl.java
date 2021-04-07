@@ -87,15 +87,7 @@ public class VaspServiceImpl implements VaspService {
         vaspInstance.setMessageHandler(this::onReceiveMessage);
         vaspInstance.setExceptionHandler(this::clientExceptionHandler);
         vaspInstance.startSessionManager();
-        List<SessionState> lst = sessionStateService.getAll();
-        int i = 0;
-        for (SessionState ss : lst) {
-            vaspInstance.restoreSession(ss);
-
-            System.out.println("Session Restored " + i);
-            i++;
-        }
-        System.out.println("KEK");
+        sessionStateService.getAll().forEach(vaspInstance::restoreSession);
     }
 
     @Override
