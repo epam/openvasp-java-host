@@ -155,6 +155,12 @@
             <artifactId>liquibase-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -216,9 +222,6 @@
                 <configuration>
                     <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
                     <driver>com.mysql.cj.jdbc.Driver</driver>
-                    <driver>org.h2.Driver</driver>
-                    <username>SA</username>
-                    <password></password>
                     <rollbackCount>1</rollbackCount>
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                     <clearCheckSums>true</clearCheckSums>
@@ -227,13 +230,19 @@
                     <execution>
                         <id>db1</id>
                         <configuration>
-                            <url>jdbc:h2:file:${project.basedir}/db1/openvasp</url>
+                            <driver>com.mysql.cj.jdbc.Driver</driver>
+                            <url>jdbc:mysql://my-sql-mysql.default.svc.cluster.local:3306/ovasp-2?useSSL=false&amp;serverTimezone=UTC</url>
+                            <username></username>
+                            <password></password>
                         </configuration>
                     </execution>
                     <execution>
                         <id>db2</id>
                         <configuration>
-                            <url>jdbc:h2:file:${project.basedir}/db2/openvasp</url>
+                            <driver>com.mysql.cj.jdbc.Driver</driver>
+                            <url>jdbc:mysql://my-sql-mysql.default.svc.cluster.local:3306/ovasp-2?useSSL=false&amp;serverTimezone=UTC</url>
+                            <username></username>
+                            <password></password>
                         </configuration>
                     </execution>
                 </executions>
