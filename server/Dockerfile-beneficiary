@@ -1,0 +1,16 @@
+FROM openjdk:8-jre-alpine
+
+ENV HOME /root
+ENV WORKDIR $HOME/openvasp-backend
+
+RUN mkdir $WORKDIR
+
+WORKDIR $WORKDIR
+
+COPY ./target/host-0.0.2.jar $WORKDIR/
+
+ADD config $WORKDIR/config
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-Dspring.profiles.active=db2,caffeine", "-jar", "host-0.0.2.jar", "--openvasp.host.configNr=2", "--server.port=8080"]
