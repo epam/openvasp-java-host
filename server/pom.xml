@@ -231,7 +231,7 @@
                         <id>db1</id>
                         <configuration>
                             <driver>com.mysql.cj.jdbc.Driver</driver>
-                            <url>jdbc:mysql://my-sql-mysql.default.svc.cluster.local:3306/ovasp-2?useSSL=false&amp;serverTimezone=UTC</url>
+                            <url>jdbc:mysql://my-sql-mysql.default.svc.cluster.local:3306/ovasp-1?useSSL=false&amp;serverTimezone=UTC</url>
                             <username></username>
                             <password></password>
                         </configuration>
