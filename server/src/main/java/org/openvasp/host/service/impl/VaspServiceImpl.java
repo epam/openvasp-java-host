@@ -10,6 +10,7 @@ import org.openvasp.client.model.*;
 import org.openvasp.client.session.BeneficiarySession;
 import org.openvasp.client.session.OriginatorSession;
 import org.openvasp.client.session.Session;
+import org.openvasp.client.session.impl.SessionState;
 import org.openvasp.host.common.exception.HttpBadRequestException;
 import org.openvasp.host.common.exception.HttpServiceException;
 import org.openvasp.host.mapper.CounterpartyMapper;
@@ -29,6 +30,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Olexandr_Bilovol@epam.com

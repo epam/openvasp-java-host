@@ -10,8 +10,10 @@ import org.openvasp.host.service.SessionStateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Olexandr_Bilovol@epam.com
