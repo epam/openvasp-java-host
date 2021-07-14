@@ -1,0 +1,25 @@
+{
+  "ListenAddr": "0.0.0.0:30303",
+
+  "HTTPEnabled": true,
+  "HTTPHost": "0.0.0.0",
+  "HTTPPort": 8545,
+  "APIModules": "shh,web3,admin,mailserver",
+  "IPCEnabled": true,
+  "RegisterTopics": ["whispermail"],
+  "WhisperConfig": {
+    "Enabled": true
+  },
+
+  "WakuConfig": {
+    "Enabled": true
+  },
+
+  "ClusterConfig": {
+    "Enabled": true,
+    "Fleet": "eth.test"
+  },
+  "BridgeConfig": {
+    "Enabled": true
+  }
+}

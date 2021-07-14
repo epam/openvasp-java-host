@@ -12,15 +12,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class VaspHostAppConfig {
 
-    @Value("${openvasp.host.configNr:1}")
-    private Integer hostConfigNr;
+    @Value("${openvasp.host.config:1}")
+    private String hostConfigNr;
 
     @Bean("hostConfig")
     public HostConfig hostConfig() {
         return Json.loadFileYaml(
                 HostConfig.class,
                 "config",
-                String.format("host-config-%d.yaml", hostConfigNr));
+                String.format("host-config-%s.yaml", hostConfigNr));
     }
 
 }
