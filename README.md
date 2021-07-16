@@ -7,9 +7,9 @@ See <https://github.com/OpenVASP/openvasp-java-client> for more information.
 
 ## Pre-requirements
 
-- Docker
-- JDK 8+
-- curl
+- **Docker**. The OpenVASP Host depends on a couple of external services, *i.e.*, MySQL and Waku. Docker and Docker Compose are used to spin these services more easily.
+- **JDK 8+**. To compile and execute the OpenVASP Spring-Boot demo application.
+- **curl** *(Optional)*. To test API calls.
 
 ## Folder structure
 
@@ -30,10 +30,30 @@ See <https://github.com/OpenVASP/openvasp-java-client> for more information.
 
 ## How to spin up
 
+Compile and package the Spring Boot application
+
+```sh
+mvn package -DskipTests
+```
+
+`skipTests` is needed because currently they failed.
+
+this creates `target/host-<pom-version>.jar` file that contains the Spring Boot application.
+
 ```bash
 sh app.sh
 
-java -Dspring.profiles.active=local,caffeine -jar ./target/host-0.0.2.jar --openvasp.host.config=local --server.port=8080
+java -Dspring.profiles.active=local,caffeine -jar ./target/host-<pom-version>.jar --openvasp.host.config=local --server.port=8080
+```
+
+or alternatively run
+
+```sh
+docker-compose up --detach
+```
+
+```sh
+mvn spring-boot:run
 ```
 
 ## Testing
