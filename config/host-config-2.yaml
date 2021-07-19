@@ -1,0 +1,24 @@
+vaspConfig:
+  whisperNodeUrl: http://localhost:8546
+  contractNodeUrl: https://ropsten.infura.io/v3/1d2e97e9b2344fcdae27e3763f866664
+  vaspCode: bbb4ee5c
+  handshakePrivateKey:
+  signingPrivateKey:
+  vaspInfo:
+    name: VASP-2
+    id:
+    pk:
+      address:
+      street: Vaspstreet
+      number: 2
+      adrline: Building 2
+      postcode: 22222
+      town: Vaspville
+      country: CH
+  acknowledgmentEnabled: false
+infuraSecret:
+httpBasicAuth:
+  name:
+  password:
+
+

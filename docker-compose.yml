@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7.34
+    volumes:
+      - "./config/dump:/docker-entrypoint-initdb.d"
+      - "mysql:/var/lib/mysql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssw0rd1
+    ports:
+      - "3306:3306"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3307:8080
+  waku:
+    image: statusteam/status-go:latest
+    entrypoint: statusd
+    volumes:
+      - "./config/waku/:/tmp:ro"
+    command: |
+      -log=${LOG_LEVEL}
+      -log-without-color
+      -c=/tmp/waku.json
+    ports:
+      - "8545:8545"
+#  host:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-originator
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - waku
+#      - db
+#    entrypoint: java
+#    command: |
+#      -Dspring.profiles.active=local,caffeine
+#      -jar
+#      /root/openvasp-backend/host-0.0.2.jar
+#      --openvasp.host.config=local
+#      --server.port=8080
+volumes:
+  mysql: {}
