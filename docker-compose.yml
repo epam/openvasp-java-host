@@ -17,7 +17,7 @@ services:
     ports:
       - 3307:8080
   waku:
-    image: statusteam/status-go:latest
+    image: statusteam/status-go:v0.77.0
     entrypoint: statusd
     volumes:
       - "./config/waku/:/tmp:ro"
