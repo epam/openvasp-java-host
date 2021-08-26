@@ -27,7 +27,7 @@ public class VaanController {
             summary = "Generate a new VAAN by a VASP code and a customer number")
     public String generate(
             @PathVariable @Size(min = 8, max = 8) @Pattern(regexp = "([0-9a-fA-F]){8}") final String vaspCode,
-            @PathVariable @Size(min = 14, max = 14) @Pattern(regexp = "([0-9a-fA-F]){14}") final String customerNr) {
+            @PathVariable @Size(min = 10, max = 10) @Pattern(regexp = "([0-9a-fA-F]){10}") final String customerNr) {
 
         log.debug("generate: VASP code = {}, customer nr = {}", vaspCode, customerNr);
         return new Vaan(new VaspCode(vaspCode), customerNr).getData();
